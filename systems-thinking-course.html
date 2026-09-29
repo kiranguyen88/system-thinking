@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Systems Thinking — From Philosophy to Execution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #eef2ef;
+  --surface: #ffffff;
+  --surface-2: #f6f8f6;
+  --ink: #17262e;
+  --ink-2: #3f4f57;
+  --muted: #677780;
+  --line: #d9e0dc;
+  --line-strong: #b9c5c0;
+  --teal: #226b5d;
+  --teal-bg: #e1efea;
+  --plum: #8a3659;
+  --plum-bg: #f6e9ef;
+  --ochre: #93690a;
+  --ochre-bg: #f6eed8;
+  --sea-1: #cfe3e2;
+  --sea-2: #7fa9ae;
+  --sea-3: #3f6f7a;
+  --sea-4: #1e4450;
+  --display: 'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --text: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #13202a; --surface: #192a34; --surface-2: #1e313c; --ink: #e2ebe8; --ink-2: #b6c5c3;
+    --muted: #8a9ba0; --line: #2a3e49; --line-strong: #3c535e; --teal: #72c4af; --teal-bg: #1b3935;
+    --plum: #e391b4; --plum-bg: #3a2333; --ochre: #e1b957; --ochre-bg: #37301c;
+    --sea-1: #2d4a52; --sea-2: #24404b; --sea-3: #1b3440; --sea-4: #122833;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #13202a; --surface: #192a34; --surface-2: #1e313c; --ink: #e2ebe8; --ink-2: #b6c5c3;
+  --muted: #8a9ba0; --line: #2a3e49; --line-strong: #3c535e; --teal: #72c4af; --teal-bg: #1b3935;
+  --plum: #e391b4; --plum-bg: #3a2333; --ochre: #e1b957; --ochre-bg: #37301c;
+  --sea-1: #2d4a52; --sea-2: #24404b; --sea-3: #1b3440; --sea-4: #122833;
+}
+*, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 1.5rem); scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+}
+img, svg { max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; }
+ul, ol { padding-left: 1.35em; margin: 0.4rem 0 1rem; }
+li { margin: 0.3rem 0; }
+li::marker { color: var(--muted); }
+li > ul { margin: 0.25rem 0 0.4rem; }
+li > ul li { color: var(--ink-2); font-size: 0.97em; }
+p { margin-bottom: 0.9rem; color: var(--ink-2); }
+p:last-child { margin-bottom: 0; }
+h1, h2, h3, h4 { font-family: var(--display); color: var(--ink); line-height: 1.2; letter-spacing: -0.01em; }
+
+/* ---------- hero ---------- */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: 2rem;
+}
+.course-tag { font-family: var(--display); font-weight: 600; color: var(--teal); font-size: 1rem; margin-bottom: 0.75rem; }
+.hero h1 {
+  font-size: clamp(3rem, 8.5vw, 6.25rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-variation-settings: "opsz" 96;
+  max-width: 7ch;
+}
+.subtitle { font-size: clamp(1.15rem, 2vw, 1.4rem); color: var(--ink-2); margin: 1.25rem 0 2rem; max-width: 28ch; line-height: 1.4; font-style: italic; }
+.facts { display: grid; grid-template-columns: auto auto auto; justify-content: start; border-top: 1px solid var(--line-strong); max-width: 34rem; }
+.facts div { padding: 0.8rem 1.5rem 0 0; }
+.facts div + div { border-left: 1px solid var(--line); padding-left: 1.25rem; }
+.facts dt { font-family: var(--display); font-size: 0.8rem; color: var(--muted); }
+.facts dd { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+
+.loop { width: 100%; height: auto; display: block; overflow: visible; }
+.loop .arc { fill: none; stroke: var(--line-strong); stroke-width: 1.75; }
+.loop .arc.back { stroke: var(--teal); stroke-dasharray: 4 5; }
+.loop marker path { fill: var(--line-strong); }
+.loop .node { cursor: pointer; text-decoration: none; }
+.loop .node circle { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; transition: fill .2s, stroke .2s; }
+.loop .node .n { font-family: var(--display); font-weight: 800; font-size: 19px; fill: var(--ink); transition: fill .2s; }
+.loop .node .lbl { font-family: var(--display); font-size: 14px; fill: var(--ink-2); }
+.loop .node:hover circle, .loop .node:focus-visible circle { fill: var(--teal); stroke: var(--teal); }
+.loop .node:hover .n, .loop .node:focus-visible .n { fill: var(--surface); }
+.loop .node:focus-visible { outline: none; }
+.loop .core-a { font-family: var(--display); font-weight: 800; font-size: 40px; fill: var(--teal); }
+.loop .core-b { font-family: var(--text); font-style: italic; font-size: 14px; fill: var(--muted); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .loop .arc { stroke-dasharray: 160; stroke-dashoffset: 160; animation: draw .5s ease-out forwards; animation-delay: calc(var(--i) * .16s + .3s); }
+  .loop .arc.back { stroke-dasharray: 160; animation-name: drawback; }
+  .loop .node circle { opacity: 0; animation: pop .35s ease-out forwards; animation-delay: calc(var(--i) * .16s + .15s); }
+  .loop .node text { opacity: 0; animation: fade .4s ease-out forwards; animation-delay: calc(var(--i) * .16s + .3s); }
+  .loop .core { opacity: 0; animation: fade .6s ease-out 1.4s forwards; }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes drawback { to { stroke-dashoffset: 0; stroke-dasharray: 4 5; } }
+@keyframes pop { to { opacity: 1; } }
+@keyframes fade { to { opacity: 1; } }
+
+/* ---------- layout ---------- */
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 4rem;
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+}
+main { max-width: 780px; min-width: 0; }
+
+.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 1.5rem); font-family: var(--display); min-width: 0; }
+.toc-title { font-family: var(--display); font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+.toc ol { list-style: none; padding: 0; margin: 0 0 1.25rem; border-left: 1px solid var(--line-strong); }
+.toc li { margin: 0; }
+.toc a {
+  display: grid; grid-template-columns: 1.5rem 1fr; column-gap: 0.4rem; row-gap: 0.15rem;
+  padding: 0.55rem 0 0.55rem 0.9rem; margin-left: -1px; border-left: 2px solid transparent;
+  text-decoration: none; color: var(--ink-2); font-size: 0.93rem; line-height: 1.3; transition: color .15s, border-color .15s;
+}
+.toc a .n { font-weight: 800; color: var(--muted); }
+.toc a .lv { grid-column: 2; display: flex; gap: 3px; }
+.toc a .lv i { width: 14px; height: 3px; border-radius: 2px; background: var(--line); }
+.toc a .lv i.on { background: var(--muted); opacity: .55; }
+.toc a.current .lv i.on { opacity: 1; }
+.toc a:hover { color: var(--ink); }
+.toc a.current { color: var(--ink); border-left-color: var(--teal); }
+.toc a.current .n { color: var(--teal); }
+.toc a.current .lv i.on { background: var(--teal); }
+.toc .extra a { margin-top: 0.4rem; }
+.expand-all {
+  font: 600 0.88rem var(--display); color: var(--ink); background: transparent;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.45rem 1.1rem; cursor: pointer; transition: background .15s, color .15s;
+}
+.expand-all:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ---------- modules ---------- */
+.module { border-top: 1px solid var(--line-strong); }
+.module:last-of-type { border-bottom: 1px solid var(--line-strong); }
+.module-header {
+  display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) 2rem; gap: 1rem; align-items: start;
+  padding: 1.75rem 0; cursor: pointer; user-select: none;
+}
+.m-num {
+  font-family: var(--display); font-weight: 800; font-size: 3.4rem; line-height: 0.85; letter-spacing: -0.05em;
+  color: var(--line-strong); transition: color .2s;
+}
+.module-header:hover .m-num, .module.active .m-num { color: var(--teal); }
+.m-kicker { display: block; font-family: var(--display); font-size: 0.85rem; color: var(--muted); margin-bottom: 0.2rem; }
+.module-header h2 { font-size: clamp(1.35rem, 2.6vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; }
+.m-meta { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; font-family: var(--display); font-size: 0.88rem; color: var(--ink-2); }
+.m-meta .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--line-strong); }
+.m-toggle, .sub-section-header .toggle-icon { position: relative; width: 1.25rem; height: 1.25rem; margin-top: 0.6rem; justify-self: end; flex-shrink: 0; }
+.m-toggle::before, .m-toggle::after, .toggle-icon::before, .toggle-icon::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 2px; background: var(--ink-2);
+  transform: translate(-50%, -50%); transition: transform .3s ease; border-radius: 1px;
+}
+.m-toggle::after, .toggle-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+.module.active > .module-header .m-toggle::after,
+.sub-section.active > .sub-section-header .toggle-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+
+.module-content, .sub-section-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; }
+.module.active > .module-content, .sub-section.active > .sub-section-content { grid-template-rows: 1fr; }
+.module-body, .sub-section-body { min-height: 0; overflow: hidden; }
+.module-body > .pad { padding: 0 0 3rem calc(4.5rem + 1rem); }
+.sub-section-body > .pad { padding: 1rem 1.25rem 1.4rem; border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { .module-content, .sub-section-content { transition: none; } html { scroll-behavior: auto; } }
+
+.section { margin-bottom: 3rem; }
+.section:last-child { margin-bottom: 0; }
+.section > h3 { font-size: 1.4rem; font-weight: 600; margin: 0 0 1rem; display: flex; gap: 0.6rem; align-items: baseline; }
+.s-num { font-size: 0.95rem; font-weight: 600; color: var(--teal); font-variant-numeric: tabular-nums; }
+.module-body h4 { font-size: 1.05rem; font-weight: 600; margin: 1.5rem 0 0.4rem; }
+
+/* callouts */
+.key-concept, .example, .exercise {
+  margin: 1.5rem 0; padding: 1.15rem 1.35rem; border-radius: 0 10px 10px 0; border-left: 3px solid;
+}
+.key-concept { background: var(--teal-bg); border-color: var(--teal); }
+.example { background: var(--surface); border-color: var(--plum); box-shadow: inset 0 0 0 1px var(--line); }
+.exercise { background: var(--ochre-bg); border-color: var(--ochre); }
+.key-concept > h4, .example > h4, .exercise > h4 { margin: 0 0 0.45rem !important; font-size: 0.98rem; }
+.key-concept > h4 { color: var(--teal); }
+.example > h4 { color: var(--plum); }
+.exercise > h4 { color: var(--ochre); }
+.key-concept p strong:only-child { font-family: var(--text); font-size: 1.12rem; font-weight: 600; line-height: 1.45; }
+.highlight { background: var(--teal-bg); color: var(--ink); padding: 0.05em 0.3em; border-radius: 3px; font-style: italic; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+/* sub-sections */
+.sub-section { margin: 1.5rem 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.sub-section-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.85rem 1.25rem; cursor: pointer; user-select: none; transition: background .15s; }
+.sub-section-header:hover { background: var(--surface-2); }
+.sub-section-header h4 { margin: 0 !important; font-size: 1rem; font-weight: 600; }
+.sub-section-header .toggle-icon { width: 0.9rem; height: 0.9rem; margin: 0; }
+.sub-section .pad > h4:first-child { margin-top: 0.25rem; }
+
+/* tables */
+.table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.comparison-table th { font-family: var(--display); font-weight: 600; font-size: 0.88rem; text-align: left; padding: 0.6rem 0.9rem; border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+.comparison-table td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.comparison-table td:first-child { color: var(--ink); }
+.comparison-table tr:last-child td { border-bottom: none; }
+
+/* diagrams */
+.diagram { margin: 1.75rem 0; padding: 1.5rem; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 10px; text-align: center; }
+.diagram-title { font-family: var(--display); font-weight: 600; font-size: 0.92rem; color: var(--muted); margin-bottom: 0.9rem; }
+.diagram > p { color: var(--ink); font-family: var(--display); }
+.feedback-loop { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.6rem 0.8rem; }
+.loop-box { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 999px; padding: 0.55rem 1.1rem; min-width: 0; }
+.loop-box h4 { margin: 0 !important; font-size: 0.92rem !important; font-weight: 600; }
+.loop-box p { margin: 0.1rem 0 0; font-size: 0.82rem; color: var(--muted); }
+.arrow { font-family: var(--display); font-size: 1.3rem; color: var(--teal); line-height: 1; }
+
+/* grids */
+.tools-grid, .skills-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; margin: 1.5rem 0; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.tool-card, .skill-item { background: var(--surface); padding: 1.1rem 1.25rem; }
+.tools-grid .tool-card { background: var(--surface) !important; }
+.tool-card h4, .skill-item h4 { margin: 0 0 0.35rem !important; font-size: 1rem; }
+.tool-card p, .skill-item p { font-size: 0.93rem; margin-bottom: 0.4rem; }
+.tool-card ul, .tool-card ol { font-size: 0.93rem; margin-bottom: 0; }
+div[style*="grid-template-columns:1fr 1fr"] > .tool-card { border: 1px solid var(--line); border-radius: 10px; }
+.diagram .tool-card { text-align: left; }
+
+/* iceberg */
+.iceberg-visual { margin: 1.75rem 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
+.iceberg-layer { padding: 1rem 1.25rem; border-radius: 6px; }
+.iceberg-layer h4 { margin: 0 0 0.3rem !important; font-size: 1.05rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.iceberg-layer .depth { font-family: var(--display); font-weight: 400; font-size: 0.82rem; opacity: 0.8; }
+.iceberg-layer p { font-size: 0.93rem; margin: 0; }
+.iceberg-layer.depth-0 { width: 62%; background: var(--surface); border: 1.5px solid var(--ink); }
+.iceberg-layer.depth-1 { width: 76%; background: var(--sea-1); border-radius: 6px 6px 0 0; }
+.iceberg-layer.depth-2 { width: 89%; background: var(--sea-2); border-radius: 0; }
+.iceberg-layer.depth-3 { width: 100%; background: var(--sea-3); border-radius: 0 0 6px 6px; }
+.iceberg-layer.depth-2, .iceberg-layer.depth-3 { color: #f2f7f6; }
+.iceberg-layer.depth-2 h4, .iceberg-layer.depth-3 h4, .iceberg-layer.depth-2 p, .iceberg-layer.depth-3 p, .iceberg-layer.depth-2 strong, .iceberg-layer.depth-3 strong { color: #f2f7f6; }
+.iceberg-layer.depth-1 p, .iceberg-layer.depth-1 h4, .iceberg-layer.depth-1 strong { color: var(--ink); }
+.waterline { width: 100%; display: flex; align-items: center; gap: 0.6rem; margin: 0.5rem 0; color: var(--sea-3); }
+.waterline svg { flex: 1; height: 12px; }
+.waterline path { fill: none; stroke: currentColor; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.waterline span { font-family: var(--display); font-size: 0.8rem; font-style: normal; }
+:root[data-theme="dark"] .waterline { color: var(--sea-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .waterline { color: #6d9aa3; } }
+
+/* worksheets */
+.field { background: var(--surface) !important; border: 1px solid var(--line) !important; }
+.sub-section-body hr { border-top-color: var(--line-strong) !important; }
+
+/* teaching */
+.teaching { margin-top: 4rem; }
+.block-title { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -0.03em; }
+.block-lede { margin: 0.5rem 0 1.5rem; max-width: 58ch; }
+.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem 2.5rem; }
+.method { border-top: 2px solid var(--ink); padding-top: 1rem; }
+.method h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; }
+.method p, .method li { font-size: 0.97rem; }
+
+.colophon { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line-strong); font-size: 0.92rem; }
+.colophon p { color: var(--muted); max-width: 64ch; }
+.colophon .ver { margin-top: 0.4rem; font-family: var(--display); font-size: 0.82rem; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { max-width: 520px; width: 100%; margin: 0 auto; }
+  .layout { grid-template-columns: 1fr; }
+  .toc {
+    position: sticky; top: 0; z-index: 5; margin: 0 calc(-1 * clamp(1.25rem, 4vw, 3rem));
+    padding: calc(env(safe-area-inset-top, 0px) + 0.5rem) clamp(1.25rem, 4vw, 3rem) 0.5rem;
+    background: var(--paper); border-bottom: 1px solid var(--line-strong);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .toc-title { display: none; }
+  .toc ol { display: flex; overflow-x: auto; border: 0; margin: 0; flex: 1; min-width: 0; scrollbar-width: none; }
+  .toc ol::-webkit-scrollbar { display: none; }
+  .toc a { display: flex; gap: 0.35rem; white-space: nowrap; padding: 0.45rem 0.7rem; border-left: 0; border-bottom: 2px solid transparent; margin: 0; }
+  .toc a .t { max-width: 11rem; overflow: hidden; text-overflow: ellipsis; }
+  .toc a .lv { display: none; }
+  .toc a.current { border-bottom-color: var(--teal); }
+  .toc .extra a { margin-top: 0; }
+  .expand-all { flex-shrink: 0; padding: 0.35rem 0.8rem; font-size: 0.8rem; }
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 4rem); }
+}
+@media (max-width: 640px) {
+  body { font-size: 1rem; }
+  .module-header { grid-template-columns: 2.75rem minmax(0, 1fr) 1.25rem; gap: 0.75rem; padding: 1.4rem 0; }
+  .m-num { font-size: 2.4rem; }
+  .module-body > .pad { padding: 0 0 2.5rem; }
+  .toc a .t { display: none; }
+  .toc a .n:not(:empty)::before { content: "M"; font-weight: 600; }
+  .toc .extra a .t { display: inline; }
+  .iceberg-layer.depth-0 { width: 80%; }
+  .iceberg-layer.depth-1 { width: 88%; }
+  .iceberg-layer.depth-2 { width: 94%; }
+  .feedback-loop { flex-direction: column; }
+  .feedback-loop .arrow.h { transform: rotate(90deg); }
+  div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  .facts div { padding-right: 0.8rem; }
+  .facts div + div { padding-left: 0.8rem; }
+  .facts dd { font-size: 0.95rem; }
+}
+
+/* ---------- figures ---------- */
+.fig { margin: 1.75rem 0; padding: 1.25rem 1.25rem 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.sub-section .fig { background: var(--surface-2); }
+.fig-scroll { overflow-x: auto; }
+.fig svg { display: block; width: 100%; height: auto; min-width: 540px; overflow: visible; }
+.fig figcaption { margin-top: 0.8rem; font-size: 0.9rem; font-style: italic; color: var(--muted); line-height: 1.5; max-width: 62ch; }
+.fig text { font-family: var(--display); fill: var(--ink); font-size: 13px; }
+.fig text.b { font-weight: 600; font-size: 12.5px; }
+.fig text.s { font-size: 11.5px; fill: var(--muted); }
+.fig text.h { font-weight: 600; font-size: 15px; }
+.fig text.big { font-weight: 800; font-size: 30px; }
+.fig text.big2 { font-weight: 800; font-size: 26px; }
+.fig text.sign { font-weight: 800; font-size: 15px; fill: var(--ink-2); }
+.fig text.inv { fill: #fff; }
+.fig text.formula { font-size: 14px; }
+.fig .teal-t { fill: var(--teal) !important; }
+.fig .plum-t { fill: var(--plum) !important; }
+.fig .st { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+.fig .st.thick { stroke-width: 3; stroke: var(--ink); }
+.fig .st.teal, .fig .curve.teal { stroke: var(--teal); }
+.fig .st.plum, .fig .curve.plum { stroke: var(--plum); }
+.fig .mk { fill: var(--ink-2); } .fig .mk-teal { fill: var(--teal); } .fig .mk-plum { fill: var(--plum); }
+.fig .bx { fill: var(--surface); stroke: var(--ink); stroke-width: 1.3; }
+.fig .bx.dash { stroke-dasharray: 4 3; stroke: var(--ink-2); }
+.fig .bx.core { fill: var(--teal-bg); stroke: var(--teal); }
+.fig .div { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+.fig .cloud * { fill: var(--surface-2); stroke: var(--line-strong); stroke-width: 1.2; }
+.fig .pipe { stroke: var(--ink-2); stroke-width: 1.5; }
+.fig .valve { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+.fig .stock { fill: none; stroke: var(--ink); stroke-width: 2; }
+.fig .water { fill: var(--sea-1); }
+.fig .axis { stroke: var(--ink-2); stroke-width: 1.2; }
+.fig .grid { stroke: var(--line); stroke-width: 1; }
+.fig .target { stroke: var(--teal); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.fig .curve { fill: none; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+.fig .curve.fat { stroke-width: 3.5; }
+.fig .curve.dashc { stroke-dasharray: 7 5; }
+.fig .ring { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.fig .ring.r1 { fill: var(--surface-2); }
+.fig .rail { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.fig .rung { stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; }
+.fig .lev { fill: var(--teal); }
+.fig .seg.s1 { fill: var(--sea-3); } .fig .seg.s2 { fill: var(--teal); } .fig .seg.s3 { fill: var(--ochre-bg); stroke: var(--ochre); stroke-dasharray: 4 3; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-text">
+    <p class="course-tag">A six-module course</p>
+    <h1>Systems thinking</h1>
+    <p class="subtitle">From philosophy to execution in a complex world</p>
+    <dl class="facts">
+      <div><dt>Modules</dt><dd>6</dd></div>
+      <div><dt>Time</dt><dd>25–30 hours</dd></div>
+      <div><dt>Level</dt><dd>Introductory to advanced</dd></div>
+    </dl>
+  </div>
+  <div class="hero-art"><svg class="loop" viewBox="0 0 500 430" role="img" aria-labelledby="loopTitle">
+<title id="loopTitle">The six modules as a loop: each builds on the last, and practice in module 6 feeds back into how you see systems in module 1.</title>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+<g class="arcs"><path class="arc" d="M282.3 87.0 A132 132 0 0 1 340.4 118.8" marker-end="url(#ah)" style="--i:0"/><path class="arc" d="M377.0 178.9 A132 132 0 0 1 378.5 245.2" marker-end="url(#ah)" style="--i:1"/><path class="arc" d="M344.7 306.9 A132 132 0 0 1 288.1 341.4" marker-end="url(#ah)" style="--i:2"/><path class="arc" d="M217.7 343.0 A132 132 0 0 1 159.6 311.2" marker-end="url(#ah)" style="--i:3"/><path class="arc" d="M123.0 251.1 A132 132 0 0 1 121.5 184.8" marker-end="url(#ah)" style="--i:4"/><path class="arc back" d="M155.3 123.1 A132 132 0 0 1 211.9 88.6" marker-end="url(#ah)" style="--i:5"/></g>
+<g class="core"><text x="250" y="209" text-anchor="middle" class="core-a">R</text><text x="250" y="233" text-anchor="middle" class="core-b">learn, apply, see again</text></g>
+<g class="nodes"><a href="#module-0" class="node" data-module="0" style="--i:0" aria-label="Module 1: The nature of systems"><circle cx="250.0" cy="83.0" r="24"/><text class="n" x="250.0" y="90.0" text-anchor="middle">1</text><text class="lbl" x="250.0" y="30.0" text-anchor="middle"><tspan x="250.0">The nature</tspan><tspan x="250.0" dy="16">of systems</tspan></text></a><a href="#module-1" class="node" data-module="1" style="--i:1" aria-label="Module 2: Skills &amp; mindsets"><circle cx="364.3" cy="149.0" r="24"/><text class="n" x="364.3" y="156.0" text-anchor="middle">2</text><text class="lbl" x="399.0" y="122.0" text-anchor="start"><tspan x="399.0">Skills &amp;</tspan><tspan x="399.0" dy="16">mindsets</tspan></text></a><a href="#module-2" class="node" data-module="2" style="--i:2" aria-label="Module 3: Language &amp; structure"><circle cx="364.3" cy="281.0" r="24"/><text class="n" x="364.3" y="288.0" text-anchor="middle">3</text><text class="lbl" x="399.0" y="294.0" text-anchor="start"><tspan x="399.0">Language &amp;</tspan><tspan x="399.0" dy="16">structure</tspan></text></a><a href="#module-3" class="node" data-module="3" style="--i:3" aria-label="Module 4: Seeing invisible structure"><circle cx="250.0" cy="347.0" r="24"/><text class="n" x="250.0" y="354.0" text-anchor="middle">4</text><text class="lbl" x="250.0" y="394.0" text-anchor="middle"><tspan x="250.0">Seeing invisible</tspan><tspan x="250.0" dy="16">structure</tspan></text></a><a href="#module-4" class="node" data-module="4" style="--i:4" aria-label="Module 5: Reasoning together"><circle cx="135.7" cy="281.0" r="24"/><text class="n" x="135.7" y="288.0" text-anchor="middle">5</text><text class="lbl" x="101.0" y="294.0" text-anchor="end"><tspan x="101.0">Reasoning</tspan><tspan x="101.0" dy="16">together</tspan></text></a><a href="#module-5" class="node" data-module="5" style="--i:5" aria-label="Module 6: Leadership in practice"><circle cx="135.7" cy="149.0" r="24"/><text class="n" x="135.7" y="156.0" text-anchor="middle">6</text><text class="lbl" x="101.0" y="122.0" text-anchor="end"><tspan x="101.0">Leadership in</tspan><tspan x="101.0" dy="16">practice</tspan></text></a></g>
+</svg></div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Course modules">
+    <p class="toc-title">Modules</p>
+    <ol><li><a href="#module-0" data-module="0"><span class="n">1</span><span class="t">The Nature of Systems &amp; The Shift in Thinking</span><span class="lv" title="Introductory" aria-label="Introductory, 3–4 hours"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span></a></li>
+<li><a href="#module-1" data-module="1"><span class="n">2</span><span class="t">8 Skills &amp; Mindsets of a Systems Thinker</span><span class="lv" title="Foundational" aria-label="Foundational, 4–5 hours"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></a></li>
+<li><a href="#module-2" data-module="2"><span class="n">3</span><span class="t">System Language &amp; Structure</span><span class="lv" title="Intermediate" aria-label="Intermediate, 4–5 hours"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></a></li>
+<li><a href="#module-3" data-module="3"><span class="n">4</span><span class="t">Tools to Visualize Invisible Structures</span><span class="lv" title="Intermediate" aria-label="Intermediate, 5–6 hours"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></a></li>
+<li><a href="#module-4" data-module="4"><span class="n">5</span><span class="t">System Reasoning &amp; Collective Modeling</span><span class="lv" title="Advanced" aria-label="Advanced, 4–5 hours"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></a></li>
+<li><a href="#module-5" data-module="5"><span class="n">6</span><span class="t">Practical Application &amp; Systems Leadership</span><span class="lv" title="Advanced" aria-label="Advanced, 5–6 hours"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></a></li>
+      <li class="extra"><a href="#teaching" data-module="t"><span class="n"></span><span class="t">Teaching methods</span></a></li>
+    </ol>
+    <button class="expand-all" type="button" aria-pressed="false">Expand all</button>
+  </nav>
+
+  <main>
+    <div class="module" id="module-0">
+<div aria-expanded="false" class="module-header" role="button" tabindex="0"><span aria-hidden="true" class="m-num">1</span><span class="m-text"><h2>The Nature of Systems &amp; The Shift in Thinking</h2><span class="m-meta">3–4 hours <span aria-hidden="true" class="sep"></span> Introductory</span></span><span aria-hidden="true" class="m-toggle"></span></div>
+<div class="module-content">
+<div class="module-body"><div class="pad">
+<div class="section">
+<h3><span class="s-num">1.1</span> The Age of Complexity</h3>
+<p>The modern world faces unprecedented challenges: global climate crisis, pandemics, social inequality, and accelerating technological change. These problems cannot be solved with traditional linear thinking.</p>
+<div class="key-concept">
+<h4>Core Assertion</h4>
+<p><strong>“Complex problems cannot be solved with simple thinking tools”</strong> — We need a new way of seeing the world.</p>
+</div>
+<div class="example">
+<h4>Real-World Example: Climate Change</h4>
+<p>Reducing CO₂ emissions is not just a technology issue. It involves:</p>
+<ul>
+<li><strong>Economic systems:</strong> Interests of energy corporations</li>
+<li><strong>Political systems:</strong> Electoral pressures and short-term policies</li>
+<li><strong>Social systems:</strong> Consumer habits and culture</li>
+<li><strong>Technological systems:</strong> Dependence on fossil fuels</li>
+</ul>
+<p>A solution focusing on only one aspect will fail or create new problems.</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Characteristics of Complex Problems</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>5 characteristics of “wicked problems”:</h4>
+<ol>
+<li><strong>Multi-causal:</strong> No single root cause
+                                            <ul><li>Example: Poverty is not just lack of money, but education, healthcare, infrastructure, policy, culture</li></ul>
+</li>
+<li><strong>Interconnected:</strong> Elements influence each other
+                                            <ul><li>Example: Poor education → Low income → Poor health → Poor education (vicious cycle)</li></ul>
+</li>
+<li><strong>Dynamic:</strong> Changes over time, not static
+                                            <ul><li>Example: Labor markets change faster than training programs</li></ul>
+</li>
+<li><strong>Non-linear:</strong> Small changes → Big impacts (or vice versa)
+                                            <ul><li>Example: A single tweet can destroy a brand, or a million-dollar campaign can go unnoticed</li></ul>
+</li>
+<li><strong>Delayed feedback:</strong> Results appear late
+                                            <ul><li>Example: Cutting education today → Consequences seen 10 years later</li></ul>
+</li>
+</ol>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">1.2</span> Defining a “System”</h3>
+<div class="key-concept">
+<h4>Definition</h4>
+<p>A <strong>system</strong> is a set of interacting and interdependent components that work together toward a common purpose.</p>
+</div>
+<h4>Three elements of a system:</h4>
+<ol>
+<li><strong>Elements:</strong> Visible components (people, cells, products)</li>
+<li><strong>Interconnections:</strong> Relationships between elements (information flows, material flows, rules)</li>
+<li><strong>Function/Purpose:</strong> The goal the system is aiming for</li>
+</ol>
+<div class="example">
+<h4>Example: Education System</h4>
+<ul>
+<li><strong>Elements:</strong> Students, teachers, textbooks, facilities</li>
+<li><strong>Interconnections:</strong> Schedules, teaching methods, evaluation systems, teacher-student relationships</li>
+<li><strong>Purpose:</strong> To develop competent and virtuous citizens</li>
+</ul>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Distinction: System vs. Collection</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div class="table-wrap"><table class="comparison-table">
+<thead><tr><th>System</th><th>Collection</th></tr></thead>
+<tbody>
+<tr><td>Interacting and interdependent parts</td><td>Independent, non-interacting parts</td></tr>
+<tr><td>Has a common purpose</td><td>No common purpose</td></tr>
+<tr><td>Changing one part affects the whole</td><td>Changing one part has little effect</td></tr>
+<tr><td>Examples: Human body, company, ecosystem</td><td>Examples: Pile of sand, books on a shelf, list of names</td></tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">1.3</span> Linear vs. Non-linear Thinking</h3>
+<div class="table-wrap"><table class="comparison-table">
+<thead><tr><th>Linear Thinking</th><th>Non-linear (Systems) Thinking</th></tr></thead>
+<tbody>
+<tr><td>A → B (simple cause)</td><td>A ↔ B ↔ C (feedback loops)</td></tr>
+<tr><td>Focus on isolated events</td><td>Focus on patterns and structures</td></tr>
+<tr><td>Solution: Treat symptoms</td><td>Solution: Intervene in root structures</td></tr>
+<tr><td>Result = Sum of parts</td><td>Result &gt; Sum of parts (emergence)</td></tr>
+<tr><td>Timeframe: Short-term, immediate</td><td>Timeframe: Along the system's lifecycle</td></tr>
+</tbody>
+</table></div>
+<figure class="fig"><div class="fig-scroll"><svg aria-label="Linear versus systems thinking" role="img" viewbox="0 0 640 230"><defs><marker id="a-lin" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-lin" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-lin" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><text class="h" text-anchor="middle" x="160" y="34">Linear thinking</text><rect class="bx" height="34" rx="17.0" width="96" x="12.0" y="101.0"></rect><text class="b" text-anchor="middle" x="60.0" y="122.5">Problem</text><rect class="bx" height="34" rx="17.0" width="96" x="122.0" y="101.0"></rect><text class="b" text-anchor="middle" x="170.0" y="122.5">Solution</text><path class="st" d="M110 118 H118" marker-end="url(#a-lin)"></path><path class="st" d="M220 118 H250" marker-end="url(#a-lin)"></path><line class="st thick" x1="262" x2="262" y1="100" y2="136"></line><text class="s" text-anchor="middle" x="262" y="160">End</text><text class="s" text-anchor="middle" x="160" y="205">One cause, one fix, done.</text><line class="div" x1="320" x2="320" y1="20" y2="220"></line><text class="h" text-anchor="middle" x="490" y="34">Systems thinking</text><path class="st teal" d="M529.0 64.5 A78 78 0 0 1 568.0 132.0" marker-end="url(#t-lin)"></path><path class="st teal" d="M529.0 199.5 A78 78 0 0 1 451.0 199.5" marker-end="url(#t-lin)"></path><path class="st teal" d="M412.0 132.0 A78 78 0 0 1 451.0 64.5" marker-end="url(#t-lin)"></path><rect class="bx" height="30" rx="15.0" width="92" x="444.0" y="39.0"></rect><text class="b" text-anchor="middle" x="490.0" y="58.5">Events</text><rect class="bx" height="30" rx="15.0" width="92" x="511.5" y="156.0"></rect><text class="b" text-anchor="middle" x="557.5" y="175.5">Patterns</text><rect class="bx" height="30" rx="15.0" width="92" x="376.5" y="156.0"></rect><text class="b" text-anchor="middle" x="422.5" y="175.5">Structures</text><text class="s" text-anchor="middle" x="490" y="148">dig deeper</text></svg></div><figcaption>Linear thinking stops at the fix. Systems thinking keeps asking what repeats and what structure produces it.</figcaption></figure>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Exercise: Distinguishing Thinking Styles</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<p><strong>Situation:</strong> A company has a high employee turnover rate (30%/year).</p>
+<p><strong>Linear thinking would:</strong></p>
+<ol>
+<li>Assume: “Employees are disloyal”</li>
+<li>Solutions: Raise salaries, add benefits, or hire new people</li>
+<li>Result: The problem persists</li>
+</ol>
+<p><strong>Systems thinking would:</strong></p>
+<ol>
+<li>Ask: “What structure creates this pattern?”</li>
+<li>Analyze: Toxic culture? Poor management? No career path? Below-market pay?</li>
+<li>Solutions: Redesign management, evaluation, and development systems</li>
+</ol>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">1.4</span> Philosophical Foundation: Holism</h3>
+<p>Philosopher Jan Smuts (1926) defined: <span class="highlight">“The whole is not only greater than the sum of its parts, but also qualitatively different.”</span></p>
+<h4>Three characteristics of Holism:</h4>
+<ol>
+<li><strong>Emergence:</strong> The system has properties that individual parts do not
+                                <ul><li>Example: “Team spirit” does not exist in one person, but emerges from interactions between members</li>
+<li>Example: “Consciousness” is not in a single neuron, but emerges from a network of billions</li></ul>
+</li>
+<li><strong>Context Matters:</strong> A part changes role depending on context
+                                <ul><li>Example: A molecule in a leaf acts differently than in a root</li>
+<li>Example: A person behaves differently at home, at work, and in a crowd</li></ul>
+</li>
+<li><strong>Primacy of Relationships:</strong> Relationships are more important than individual elements
+                                <ul><li>Example: In an ecosystem, survival depends on the food web, not just species traits</li>
+<li>Example: In a company, culture and relationships matter more than individual stars</li></ul>
+</li>
+</ol>
+<div class="exercise">
+<h4>Practical Exercise</h4>
+<p><strong>Analyze a familiar system:</strong></p>
+<ol>
+<li>Choose a system you know well (family, company, school)</li>
+<li>List 5 key elements</li>
+<li>Describe 3 important relationships between them</li>
+<li>Identify the real purpose of the system (may differ from stated purpose)</li>
+<li>What would happen if you changed one relationship?</li>
+</ol>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="module" id="module-1">
+<div aria-expanded="false" class="module-header" role="button" tabindex="0"><span aria-hidden="true" class="m-num">2</span><span class="m-text"><h2>8 Skills &amp; Mindsets of a Systems Thinker</h2><span class="m-meta">4–5 hours <span aria-hidden="true" class="sep"></span> Foundational</span></span><span aria-hidden="true" class="m-toggle"></span></div>
+<div class="module-content">
+<div class="module-body"><div class="pad">
+<div class="section">
+<h3><span class="s-num">2.1</span> The 8 Core Skills</h3>
+<div class="skills-list">
+<div class="skill-item"><h4>1. 10,000-foot Thinking</h4><p>Seeing the big picture, stepping back from details to view the whole system</p></div>
+<div class="skill-item"><h4>2. System as Cause</h4><p>Recognizing that system structure drives behavior, not individual faults</p></div>
+<div class="skill-item"><h4>3. Dynamic Thinking</h4><p>Understanding systems change over time, not as static states</p></div>
+<div class="skill-item"><h4>4. Operational Thinking</h4><p>Identifying flows of materials, information, and decisions in the system</p></div>
+<div class="skill-item"><h4>5. Feedback Loop Thinking</h4><p>Differentiating reinforcing (growth/collapse) and balancing (stabilizing) loops</p></div>
+<div class="skill-item"><h4>6. Non-linear Thinking</h4><p>Accepting that small changes can have large impacts (leverage points)</p></div>
+<div class="skill-item"><h4>7. Scientific Thinking</h4><p>Testing assumptions, gathering data, and refining mental models</p></div>
+<div class="skill-item"><h4>8. Empathy</h4><p>Understanding the perspectives of different actors within the system</p></div>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Details of Each Skill</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>1. 10,000-foot Thinking</h4>
+<p><strong>Description:</strong> The ability to “fly high” to see the whole landscape.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>When facing a problem, pause and ask: “What is the bigger picture?”</li><li>Draw a system diagram before diving into details</li><li>Place the problem in a broader context (industry, society, global)</li></ul>
+<h4>2. System as Cause</h4>
+<p><strong>Description:</strong> Behavior comes from structure, not random events or individuals.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Instead of asking “Who made the mistake?”, ask “What structure created this behavior?”</li><li>Analyze policies, processes, and incentives before blaming people</li></ul>
+<h4>3. Dynamic Thinking</h4>
+<p><strong>Description:</strong> Seeing the system as an ongoing process, not a snapshot.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Draw trend lines over time</li><li>Ask: “When did this happen before? When will it happen again?”</li><li>Think in life cycles</li></ul>
+<h4>4. Operational Thinking</h4>
+<p><strong>Description:</strong> Understanding how the system actually works, not how it's described.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Walk the actual process (go and see)</li><li>Draw a flowchart of the real process, not the theoretical one</li><li>Identify gaps between “say” and “do”</li></ul>
+<h4>5. Feedback Loop Thinking</h4>
+<p><strong>Description:</strong> Identifying circular cause-and-effect relationships.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Draw Causal Loop Diagrams (CLDs)</li><li>Find reinforcing loops (growth/collapse)</li><li>Find balancing loops (stabilizing/constraining)</li></ul>
+<h4>6. Non-linear Thinking</h4>
+<p><strong>Description:</strong> Accepting that cause-effect relationships are not always proportional.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Search for leverage points</li><li>Understand tipping points</li><li>Avoid oversimplification</li></ul>
+<h4>7. Scientific Thinking</h4>
+<p><strong>Description:</strong> Testing assumptions, gathering data, and updating models.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Write down your assumptions</li><li>Find data to test them</li><li>Be willing to change when new evidence appears</li></ul>
+<h4>8. Empathy</h4>
+<p><strong>Description:</strong> Understanding the perspectives, emotions, and pressures of other actors.</p>
+<p><strong>Practice:</strong></p>
+<ul><li>Create actor maps</li><li>Interview stakeholders</li><li>Put yourself in others' shoes</li></ul>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">2.2</span> Metacognition</h3>
+<p>Metacognition is the ability to observe and adjust your own thinking models. It is the “meta” skill — thinking about thinking.</p>
+<h4>Three levels of metacognition:</h4>
+<ol>
+<li><strong>Awareness:</strong> “What thinking model am I using?”</li>
+<li><strong>Evaluation:</strong> “Is this model effective in this context?”</li>
+<li><strong>Adjustment:</strong> “Which model is more appropriate?”</li>
+</ol>
+<div class="example">
+<h4>Example: Shifting from Blame to System</h4>
+<p><strong>Default thinking:</strong> “This employee is lazy, they need discipline.”</p>
+<p><strong>Metacognition:</strong> “My model is blaming the individual. Is there a system structure driving this behavior?”</p>
+<p><strong>Systems thinking:</strong> “Does the reward system encourage the desired behavior? Is the process clear?”</p>
+</div>
+<div class="exercise">
+<h4>Reflective Journal (Writing is Thinking)</h4>
+<p>Spend 15 minutes each day writing about:</p>
+<ul>
+<li>A problem you encountered</li>
+<li>Your initial thinking model</li>
+<li>Systems questions you could ask</li>
+<li>An alternative thinking model</li>
+</ul>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Common Cognitive Biases</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div class="table-wrap"><table class="comparison-table">
+<thead><tr><th>Bias</th><th>Description</th><th>How to Overcome</th></tr></thead>
+<tbody>
+<tr><td><strong>Fundamental Attribution Error</strong></td><td>Blaming individuals instead of systems</td><td>Ask: “What structure creates this behavior?”</td></tr>
+<tr><td><strong>Confirmation Bias</strong></td><td>Seeking data that supports assumptions</td><td>Look for disconfirming data, ask others</td></tr>
+<tr><td><strong>Availability Heuristic</strong></td><td>Relying on the most memorable information</td><td>Collect systematic data, not just anecdotes</td></tr>
+<tr><td><strong>Linear Cause-Effect</strong></td><td>Assuming a simple A → B relationship</td><td>Draw feedback loops, look for circular causality</td></tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">2.3</span> Empathy in Social Systems</h3>
+<p>In complex systems, actors have different perspectives, interests, and information. Empathy helps us understand why they act the way they do.</p>
+<h4>Three levels of systemic empathy:</h4>
+<ol>
+<li><strong>Emotional:</strong> Understanding others' feelings</li>
+<li><strong>Cognitive:</strong> Understanding their perspective and beliefs</li>
+<li><strong>Systemic:</strong> Understanding the pressures and constraints the system places on them</li>
+</ol>
+<div class="key-concept">
+<h4>Core Insight</h4>
+<p><strong>“Most people are not the problem — they are responding rationally to the system they are in.”</strong></p>
+</div>
+<div class="example">
+<h4>Example: Teacher and “Difficult” Student</h4>
+<p><strong>Teacher's view:</strong> “This student is disruptive and refuses to learn.”</p>
+<p><strong>Student's view:</strong> “Everyone thinks I'm stupid, I can't keep up, better not to try.”</p>
+<p><strong>System view:</strong> Overloaded curriculum, no personalized support, grade pressure.</p>
+<p><strong>Systemic solution:</strong> Instead of punishing the student, redesign the learning support system.</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Tool: Empathy Mapping</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<p><strong>Empathy Map (4 quadrants):</strong></p>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;">
+<div class="tool-card"><h4>Says</h4><p>Direct quotes and statements</p></div>
+<div class="tool-card"><h4>Thinks</h4><p>Inner beliefs and thoughts (may not be spoken)</p></div>
+<div class="tool-card"><h4>Does</h4><p>Observable actions and behaviors</p></div>
+<div class="tool-card"><h4>Feels</h4><p>Emotions, anxieties, hopes</p></div>
+</div>
+<p><strong>Practice:</strong> Choose a stakeholder, fill in the empathy map, then ask: “Why do they act this way within this system?”</p>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="module" id="module-2">
+<div aria-expanded="false" class="module-header" role="button" tabindex="0"><span aria-hidden="true" class="m-num">3</span><span class="m-text"><h2>System Language &amp; Structure</h2><span class="m-meta">4–5 hours <span aria-hidden="true" class="sep"></span> Intermediate</span></span><span aria-hidden="true" class="m-toggle"></span></div>
+<div class="module-content">
+<div class="module-body"><div class="pad">
+<div class="section">
+<h3><span class="s-num">3.1</span> Stocks &amp; Flows Language</h3>
+<p>Stocks and Flows are the fundamental language for describing dynamic systems. Every system can be described by accumulations (stocks) and flows.</p>
+<div class="key-concept">
+<h4>Definitions</h4>
+<p><strong>Stock:</strong> An accumulation at a point in time — a noun (population, savings, inventory)</p>
+<p><strong>Flow:</strong> The rate of change of a stock — a verb (births/deaths, income/expenses, inbound/outbound)</p>
+</div>
+<h4>Illustrative Example:</h4>
+<figure class="fig"><div class="fig-scroll"><svg aria-label="Bathtub stock and flow diagram" role="img" viewbox="0 0 640 230"><defs><marker id="a-tub" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-tub" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-tub" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><g class="cloud"><circle cx="44" cy="118" r="11"></circle><circle cx="58" cy="108" r="13"></circle><circle cx="71" cy="118" r="10"></circle><rect height="12" rx="6" width="46" x="34" y="116"></rect></g><line class="pipe" x1="82" x2="238" y1="113" y2="113"></line><line class="pipe" x1="82" x2="238" y1="123" y2="123"></line><path class="st" d="M232 118 H246" marker-end="url(#a-tub)"></path><polygon class="valve" points="150,106 170,130 170,106 150,130"></polygon><line class="st" x1="160" x2="160" y1="118" y2="96"></line><circle class="valve" cx="160" cy="92" r="4"></circle><text class="b" text-anchor="middle" x="160" y="70">Inflow</text><text class="s" text-anchor="middle" x="160" y="84">faucet, litres/min</text><rect class="water" height="54" width="136" x="252" y="112"></rect><rect class="stock" height="98" width="140" x="250" y="70"></rect><text class="b" text-anchor="middle" x="320" y="96">Stock</text><text class="s" text-anchor="middle" x="320" y="111">water in the tub</text><line class="pipe" x1="390" x2="546" y1="113" y2="113"></line><line class="pipe" x1="390" x2="546" y1="123" y2="123"></line><path class="st" d="M540 118 H556" marker-end="url(#a-tub)"></path><polygon class="valve" points="460,106 480,130 480,106 460,130"></polygon><line class="st" x1="470" x2="470" y1="118" y2="96"></line><circle class="valve" cx="470" cy="92" r="4"></circle><text class="b" text-anchor="middle" x="470" y="70">Outflow</text><text class="s" text-anchor="middle" x="470" y="84">drain, litres/min</text><g class="cloud"><circle cx="572" cy="118" r="11"></circle><circle cx="586" cy="108" r="13"></circle><circle cx="599" cy="118" r="10"></circle><rect height="12" rx="6" width="46" x="562" y="116"></rect></g><text class="b formula" text-anchor="middle" x="320" y="212">Stock(new) = Stock(old) + Inflow − Outflow</text></svg></div><figcaption>Stock-and-flow notation: clouds are sources and sinks outside the system, valves set the rate, the box accumulates.</figcaption></figure>
+<h4>Real-world Applications:</h4>
+<ul>
+<li><strong>Business:</strong> Cash (stock) ← Revenue (inflow) – Expenses (outflow)</li>
+<li><strong>Population:</strong> Population (stock) ← Births (inflow) – Deaths (outflow)</li>
+<li><strong>Inventory:</strong> Stock (stock) ← Receiving (inflow) – Shipping (outflow)</li>
+</ul>
+<div class="exercise">
+<h4>Exercise: Draw a Stocks &amp; Flows Diagram</h4>
+<p>Choose a system and draw:</p>
+<ol>
+<li>Identify 2–3 main stocks (rectangles)</li>
+<li>Draw the flows in/out (arrows with valve ▶)</li>
+<li>Label units (people/year, $/month, products/day)</li>
+<li>Observe: Which stocks are increasing? Decreasing? Stable?</li>
+</ol>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Common Stock &amp; Flow Patterns</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>Pattern 1: Bathtub</h4>
+<p>Single stock with independent inflow and outflow. <em>Examples:</em> Bank account, water tank, inventory.</p>
+<h4>Pattern 2: Chain</h4>
+<p>Outflow of one stock is the inflow of the next. <em>Example:</em> Supply chain: Raw materials → Work-in-progress → Finished goods → Sales.</p>
+<h4>Pattern 3: Fork</h4>
+<p>One stock has multiple outflows. <em>Example:</em> Company budget → Marketing, R&amp;D, Operations, HR.</p>
+<h4>Pattern 4: Convergence</h4>
+<p>Multiple inflows into one stock. <em>Example:</em> Revenue from multiple channels into company account.</p>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">3.2</span> Feedback Loops</h3>
+<p>Feedback loops are the self-regulating mechanisms of systems. Outputs return as inputs, influencing future behavior.</p>
+<div class="tools-grid">
+<div class="tool-card">
+<h4>Reinforcing Loop (R)</h4>
+<p><strong>Characteristic:</strong> Amplifies change, creating growth or collapse.</p>
+<p><strong>Symbol:</strong> R or (+)</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Compound interest: Money → Interest → More money → More interest</li>
+<li>Social media: Likes → More visibility → More likes</li>
+<li>Albedo effect: Ice melts → More heat absorbed → More melting</li>
+</ul>
+</div>
+<div class="tool-card">
+<h4>Balancing Loop (B)</h4>
+<p><strong>Characteristic:</strong> Stabilizes the system, bringing it toward a goal.</p>
+<p><strong>Symbol:</strong> B or (–)</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Thermostat: High temp → Cooling on → Temp drops</li>
+<li>Market: Supply &gt; Demand → Price drops → Supply decreases</li>
+<li>Body: Hunger → Eating → Fullness</li>
+</ul>
+</div>
+</div>
+<figure class="fig"><div class="fig-scroll"><svg aria-label="Reinforcing and balancing causal loop diagrams" role="img" viewbox="0 0 660 332"><defs><marker id="a-loops" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-loops" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-loops" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><text class="h teal-t" text-anchor="middle" x="165" y="28">Reinforcing loop (R)</text><path class="st teal" d="M207.0 68.2 A112 112 0 0 1 250.8 100.0" marker-end="url(#t-loops)"></path><text class="sign" text-anchor="middle" x="240.2" y="73.4">+</text><path class="st teal" d="M276.7 179.8 A112 112 0 0 1 260.0 231.4" marker-end="url(#t-loops)"></path><text class="sign" text-anchor="middle" x="286.7" y="216.6">+</text><path class="st teal" d="M192.1 280.7 A112 112 0 0 1 137.9 280.7" marker-end="url(#t-loops)"></path><text class="sign" text-anchor="middle" x="165.0" y="305.0">+</text><path class="st teal" d="M70.0 231.4 A112 112 0 0 1 53.3 179.8" marker-end="url(#t-loops)"></path><text class="sign" text-anchor="middle" x="43.3" y="216.6">+</text><path class="st teal" d="M79.2 100.0 A112 112 0 0 1 123.0 68.2" marker-end="url(#t-loops)"></path><text class="sign" text-anchor="middle" x="89.8" y="73.4">+</text><rect class="bx" height="30" rx="15.0" width="112" x="109.0" y="45.0"></rect><text class="b" text-anchor="middle" x="165.0" y="64.5">Product quality</text><rect class="bx" height="30" rx="15.0" width="112" x="215.5" y="122.4"></rect><text class="b" text-anchor="middle" x="271.5" y="141.9">Satisfaction</text><rect class="bx" height="30" rx="15.0" width="112" x="174.8" y="247.6"></rect><text class="b" text-anchor="middle" x="230.8" y="267.1">Word of mouth</text><rect class="bx" height="30" rx="15.0" width="112" x="43.2" y="247.6"></rect><text class="b" text-anchor="middle" x="99.2" y="267.1">Sales</text><rect class="bx" height="30" rx="15.0" width="112" x="2.5" y="122.4"></rect><text class="b" text-anchor="middle" x="58.5" y="141.9">R&amp;D budget</text><text class="big teal-t" text-anchor="middle" x="165" y="182">R</text><path class="st teal" d="M183 150 a24 24 0 1 1 -32 4" marker-end="url(#t-loops)"></path><line class="div" x1="340" x2="340" y1="20" y2="322"></line><text class="h plum-t" text-anchor="middle" x="500" y="28">Balancing loop (B)</text><path class="st plum" d="M545.9 96.6 A96 96 0 0 1 590.9 174.6" marker-end="url(#p-loops)"></path><text class="sign" text-anchor="middle" x="592.0" y="127.0">+</text><path class="st plum" d="M540.1 262.8 A96 96 0 0 1 449.9 262.8" marker-end="url(#p-loops)"></path><text class="sign" text-anchor="middle" x="495.0" y="295.0">+</text><path class="st plum" d="M399.1 174.6 A96 96 0 0 1 444.1 96.6" marker-end="url(#p-loops)"></path><text class="sign" text-anchor="middle" x="398.0" y="127.0">−</text><rect class="bx" height="30" rx="15.0" width="128" x="431.0" y="67.0"></rect><text class="b" text-anchor="middle" x="495.0" y="86.5">Room temperature</text><rect class="bx" height="30" rx="15.0" width="128" x="514.1" y="211.0"></rect><text class="b" text-anchor="middle" x="578.1" y="230.5">Gap from target</text><rect class="bx" height="30" rx="15.0" width="128" x="347.9" y="211.0"></rect><text class="b" text-anchor="middle" x="411.9" y="230.5">Cooling</text><text class="big plum-t" text-anchor="middle" x="495" y="188">B</text><rect class="bx dash" height="26" rx="13.0" width="76" x="560.1" y="49.0"></rect><text class="b" text-anchor="middle" x="598.1" y="66.5">Target</text><path class="st" d="M598 76 V 208" marker-end="url(#a-loops)"></path><text class="s" text-anchor="middle" x="165" y="318">Change amplifies itself: growth, or collapse.</text><text class="s" text-anchor="middle" x="495" y="318">Change is pulled back toward a goal.</text></svg></div><figcaption>Read a sign as “moves in the same direction” (+) or “the opposite direction” (−). An odd number of minus signs makes a balancing loop.</figcaption></figure>
+<div class="key-concept">
+<h4>Important Note</h4>
+<p><strong>“Positive” does not mean good, “Negative” does not mean bad.</strong> Reinforcing loops can create growth (good) or collapse (bad). Balancing loops can stabilize (good) or constrain (bad).</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Analysis: Systems with Multiple Loops</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<p>Most real systems have multiple interacting loops. Dominance (which loop prevails) can shift over time.</p>
+<h4>Example: Startup</h4>
+<ul>
+<li><strong>Early stage:</strong> Reinforcing growth loop dominates (customers → revenue → marketing → customers)</li>
+<li><strong>Later stage:</strong> Balancing constraint loop dominates (market saturation, competition, rising costs)</li>
+</ul>
+<p><strong>Lesson:</strong> When loop dominance shifts, strategy must change. Continuing the old strategy will fail.</p>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">3.3</span> Delays and Counter-intuitiveness</h3>
+<h4>Delays:</h4>
+<p>In systems, effects often do not happen immediately. Delays between action and outcome can lead to:</p>
+<ul>
+<li><strong>Overshooting:</strong> Acting too much because results aren't seen immediately</li>
+<li><strong>Oscillation:</strong> Fluctuating around a target</li>
+<li><strong>Overcorrection:</strong> Adjusting too far</li>
+</ul>
+<div class="example">
+<h4>Example: Shower Temperature</h4>
+<p>You turn the hot water knob → It doesn't feel warm right away → Turn it more → Water gets too hot → Turn it back → Too cold → ...</p>
+<p><strong>Lesson:</strong> The delay between turning the knob and feeling the temperature creates oscillation. Solution: Turn slowly and wait.</p>
+</div><figure class="fig"><div class="fig-scroll"><svg aria-label="Oscillation caused by delay" role="img" viewbox="0 0 640 230"><defs><marker id="a-osc" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-osc" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-osc" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><line class="axis" x1="70" x2="70" y1="30" y2="200"></line><line class="axis" x1="70" x2="610" y1="200" y2="200"></line><line class="target" x1="70" x2="610" y1="100" y2="100"></line><text class="s" text-anchor="end" x="610" y="92">Comfortable temperature</text><polyline class="curve plum" points="70.0,190.0 72.2,188.6 74.5,186.7 76.8,184.4 79.0,181.7 81.2,178.7 83.5,175.3 85.8,171.5 88.0,167.5 90.2,163.2 92.5,158.7 94.8,154.0 97.0,149.2 99.2,144.1 101.5,139.0 103.8,133.8 106.0,128.6 108.2,123.3 110.5,118.1 112.8,112.9 115.0,107.7 117.2,102.7 119.5,97.8 121.8,93.0 124.0,88.4 126.2,83.9 128.5,79.7 130.8,75.7 133.0,71.9 135.2,68.4 137.5,65.1 139.8,62.1 142.0,59.4 144.2,57.0 146.5,54.9 148.8,53.1 151.0,51.6 153.2,50.4 155.5,49.5 157.8,48.8 160.0,48.5 162.2,48.5 164.5,48.8 166.8,49.3 169.0,50.1 171.2,51.1 173.5,52.4 175.8,53.9 178.0,55.6 180.2,57.5 182.5,59.5 184.8,61.8 187.0,64.2 189.2,66.7 191.5,69.4 193.8,72.1 196.0,74.9 198.2,77.8 200.5,80.7 202.8,83.7 205.0,86.6 207.2,89.6 209.5,92.5 211.8,95.4 214.0,98.2 216.2,101.0 218.5,103.7 220.8,106.3 223.0,108.8 225.2,111.2 227.5,113.5 229.8,115.7 232.0,117.6 234.2,119.5 236.5,121.2 238.8,122.7 241.0,124.1 243.2,125.3 245.5,126.3 247.8,127.2 250.0,127.9 252.2,128.4 254.5,128.8 256.8,129.0 259.0,129.0 261.2,128.9 263.5,128.6 265.8,128.2 268.0,127.6 270.2,126.9 272.5,126.1 274.8,125.1 277.0,124.0 279.2,122.9 281.5,121.6 283.8,120.3 286.0,118.9 288.2,117.4 290.5,115.8 292.8,114.3 295.0,112.6 297.2,111.0 299.5,109.3 301.8,107.7 304.0,106.0 306.2,104.4 308.5,102.7 310.8,101.1 313.0,99.6 315.2,98.0 317.5,96.6 319.8,95.1 322.0,93.8 324.2,92.5 326.5,91.3 328.8,90.2 331.0,89.1 333.2,88.1 335.5,87.3 337.8,86.5 340.0,85.8 342.2,85.2 344.5,84.7 346.8,84.3 349.0,84.0 351.2,83.8 353.5,83.7 355.8,83.7 358.0,83.7 360.2,83.9 362.5,84.1 364.8,84.4 367.0,84.8 369.2,85.3 371.5,85.8 373.8,86.4 376.0,87.1 378.2,87.8 380.5,88.5 382.8,89.3 385.0,90.1 387.2,91.0 389.5,91.9 391.8,92.8 394.0,93.7 396.2,94.7 398.5,95.6 400.8,96.5 403.0,97.5 405.2,98.4 407.5,99.3 409.8,100.2 412.0,101.0 414.2,101.9 416.5,102.7 418.8,103.4 421.0,104.2 423.2,104.8 425.5,105.5 427.8,106.1 430.0,106.6 432.2,107.1 434.5,107.6 436.8,108.0 439.0,108.3 441.2,108.6 443.5,108.8 445.8,109.0 448.0,109.1 450.2,109.2 452.5,109.2 454.8,109.2 457.0,109.1 459.2,109.0 461.5,108.8 463.8,108.6 466.0,108.3 468.2,108.0 470.5,107.7 472.8,107.3 475.0,106.9 477.2,106.5 479.5,106.1 481.8,105.6 484.0,105.1 486.2,104.6 488.5,104.1 490.8,103.6 493.0,103.1 495.2,102.5 497.5,102.0 499.8,101.5 502.0,101.0 504.2,100.4 506.5,99.9 508.8,99.5 511.0,99.0 513.2,98.5 515.5,98.1 517.8,97.7 520.0,97.3 522.2,96.9 524.5,96.6 526.8,96.3 529.0,96.0 531.2,95.8 533.5,95.5 535.8,95.3 538.0,95.2 540.2,95.1 542.5,94.9 544.8,94.9 547.0,94.8 549.2,94.8 551.5,94.8 553.8,94.9 556.0,95.0 558.2,95.0 560.5,95.2 562.8,95.3 565.0,95.5 567.2,95.7 569.5,95.9 571.8,96.1 574.0,96.3 576.2,96.6 578.5,96.8 580.8,97.1 583.0,97.4 585.2,97.7 587.5,98.0 589.8,98.3 592.0,98.6 594.2,98.9 596.5,99.1 598.8,99.4 601.0,99.7 603.2,100.0 605.5,100.3 607.8,100.5 610.0,100.8"></polyline><polyline class="curve teal dashc" points="70.0,190.0 72.2,188.0 74.5,186.0 76.8,184.0 79.0,182.1 81.2,180.3 83.5,178.4 85.8,176.7 88.0,174.9 90.2,173.2 92.5,171.6 94.8,169.9 97.0,168.4 99.2,166.8 101.5,165.3 103.8,163.8 106.0,162.4 108.2,161.0 110.5,159.6 112.8,158.2 115.0,156.9 117.2,155.6 119.5,154.4 121.8,153.1 124.0,151.9 126.2,150.7 128.5,149.6 130.8,148.5 133.0,147.4 135.2,146.3 137.5,145.3 139.8,144.2 142.0,143.2 144.2,142.2 146.5,141.3 148.8,140.4 151.0,139.4 153.2,138.5 155.5,137.7 157.8,136.8 160.0,136.0 162.2,135.2 164.5,134.4 166.8,133.6 169.0,132.8 171.2,132.1 173.5,131.4 175.8,130.7 178.0,130.0 180.2,129.3 182.5,128.6 184.8,128.0 187.0,127.3 189.2,126.7 191.5,126.1 193.8,125.5 196.0,124.9 198.2,124.4 200.5,123.8 202.8,123.3 205.0,122.8 207.2,122.2 209.5,121.7 211.8,121.2 214.0,120.8 216.2,120.3 218.5,119.8 220.8,119.4 223.0,118.9 225.2,118.5 227.5,118.1 229.8,117.7 232.0,117.3 234.2,116.9 236.5,116.5 238.8,116.1 241.0,115.8 243.2,115.4 245.5,115.1 247.8,114.7 250.0,114.4 252.2,114.1 254.5,113.7 256.8,113.4 259.0,113.1 261.2,112.8 263.5,112.5 265.8,112.3 268.0,112.0 270.2,111.7 272.5,111.4 274.8,111.2 277.0,110.9 279.2,110.7 281.5,110.4 283.8,110.2 286.0,110.0 288.2,109.7 290.5,109.5 292.8,109.3 295.0,109.1 297.2,108.9 299.5,108.7 301.8,108.5 304.0,108.3 306.2,108.1 308.5,107.9 310.8,107.8 313.0,107.6 315.2,107.4 317.5,107.2 319.8,107.1 322.0,106.9 324.2,106.8 326.5,106.6 328.8,106.5 331.0,106.3 333.2,106.2 335.5,106.0 337.8,105.9 340.0,105.8 342.2,105.6 344.5,105.5 346.8,105.4 349.0,105.2 351.2,105.1 353.5,105.0 355.8,104.9 358.0,104.8 360.2,104.7 362.5,104.6 364.8,104.5 367.0,104.4 369.2,104.3 371.5,104.2 373.8,104.1 376.0,104.0 378.2,103.9 380.5,103.8 382.8,103.7 385.0,103.6 387.2,103.6 389.5,103.5 391.8,103.4 394.0,103.3 396.2,103.2 398.5,103.2 400.8,103.1 403.0,103.0 405.2,103.0 407.5,102.9 409.8,102.8 412.0,102.8 414.2,102.7 416.5,102.6 418.8,102.6 421.0,102.5 423.2,102.5 425.5,102.4 427.8,102.4 430.0,102.3 432.2,102.2 434.5,102.2 436.8,102.1 439.0,102.1 441.2,102.1 443.5,102.0 445.8,102.0 448.0,101.9 450.2,101.9 452.5,101.8 454.8,101.8 457.0,101.7 459.2,101.7 461.5,101.7 463.8,101.6 466.0,101.6 468.2,101.6 470.5,101.5 472.8,101.5 475.0,101.5 477.2,101.4 479.5,101.4 481.8,101.4 484.0,101.3 486.2,101.3 488.5,101.3 490.8,101.2 493.0,101.2 495.2,101.2 497.5,101.2 499.8,101.1 502.0,101.1 504.2,101.1 506.5,101.1 508.8,101.0 511.0,101.0 513.2,101.0 515.5,101.0 517.8,100.9 520.0,100.9 522.2,100.9 524.5,100.9 526.8,100.9 529.0,100.8 531.2,100.8 533.5,100.8 535.8,100.8 538.0,100.8 540.2,100.7 542.5,100.7 544.8,100.7 547.0,100.7 549.2,100.7 551.5,100.7 553.8,100.7 556.0,100.6 558.2,100.6 560.5,100.6 562.8,100.6 565.0,100.6 567.2,100.6 569.5,100.6 571.8,100.5 574.0,100.5 576.2,100.5 578.5,100.5 580.8,100.5 583.0,100.5 585.2,100.5 587.5,100.5 589.8,100.5 592.0,100.4 594.2,100.4 596.5,100.4 598.8,100.4 601.0,100.4 603.2,100.4 605.5,100.4 607.8,100.4 610.0,100.4"></polyline><text class="s plum-t" x="150" y="30">Turn fast, react to what you feel now</text><text class="s teal-t" x="300" y="150">Turn slowly and wait for the delay</text><text class="s" x="118" y="48">too hot</text><text class="s" x="200" y="196">too cold</text><text class="s" text-anchor="end" x="60" y="40">hot</text><text class="s" text-anchor="end" x="60" y="200">cold</text><text class="s" text-anchor="end" x="610" y="222">time</text></svg></div><figcaption>The shower: a delay between action and feedback turns a simple correction into oscillation.</figcaption></figure>
+<h4>Why do obvious solutions often make problems worse?</h4>
+<ol>
+<li><strong>Focusing on symptoms:</strong> Solving events, not structures</li>
+<li><strong>Ignoring delays:</strong> Acting before seeing results</li>
+<li><strong>Familiar with reinforcing loops:</strong> Not recognizing that balancing loops will backfire</li>
+<li><strong>Optimizing parts:</strong> Optimizing one part harms the whole system</li>
+</ol>
+<div class="example">
+<h4>Example: Traffic Congestion and Road Expansion</h4>
+<p><strong>Obvious solution:</strong> Traffic jam → Widen the road.</p>
+<p><strong>Actual result:</strong> Wider road → More people drive → Congestion returns (induced demand).</p>
+<p><strong>Systemic solution:</strong> Develop public transport, mixed-use urban planning, remote work.</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Simulation Game: Beer Distribution Game</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<p><strong>Description:</strong> Simulates the beer supply chain from Factory → Distributor → Wholesaler → Retailer → Customer.</p>
+<p><strong>Rules:</strong> Each role only sees orders from the next tier, not the whole system.</p>
+<p><strong>Typical result:</strong> Oscillation and the Bullwhip Effect — volatility increases from customers up to the factory.</p><figure class="fig"><div class="fig-scroll"><svg aria-label="Bullwhip effect across supply chain tiers" role="img" viewbox="0 0 660 270"><defs><marker id="a-bw" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-bw" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-bw" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><text class="b" text-anchor="end" x="100" y="38">Customer</text><line class="grid" x1="115" x2="620" y1="34" y2="34"></line><polyline class="curve teal" points="115.0,34.0 117.5,34.0 120.0,34.0 122.6,34.0 125.1,34.0 127.6,34.0 130.2,34.0 132.7,34.0 135.2,34.0 137.7,34.0 140.2,34.0 142.8,34.0 145.3,34.0 147.8,34.0 150.3,34.0 152.9,34.0 155.4,34.0 157.9,34.0 160.4,34.0 163.0,34.0 165.5,34.0 168.0,34.0 170.6,34.0 173.1,34.0 175.6,34.0 178.1,34.0 180.7,34.0 183.2,34.0 185.7,34.0 188.2,34.0 190.8,34.0 193.3,34.0 195.8,34.0 198.3,34.0 200.9,34.0 203.4,34.0 205.9,34.0 208.4,26.0 210.9,26.0 213.5,26.0 216.0,26.0 218.5,26.0 221.1,26.0 223.6,26.0 226.1,26.0 228.6,26.0 231.2,26.0 233.7,26.0 236.2,26.0 238.7,26.0 241.2,26.0 243.8,26.0 246.3,26.0 248.8,26.0 251.4,26.0 253.9,26.0 256.4,26.0 258.9,26.0 261.4,26.0 264.0,26.0 266.5,26.0 269.0,26.0 271.6,26.0 274.1,26.0 276.6,26.0 279.1,26.0 281.6,26.0 284.2,26.0 286.7,26.0 289.2,26.0 291.8,26.0 294.3,26.0 296.8,26.0 299.3,26.0 301.9,26.0 304.4,26.0 306.9,26.0 309.4,26.0 312.0,26.0 314.5,26.0 317.0,26.0 319.5,26.0 322.0,26.0 324.6,26.0 327.1,26.0 329.6,26.0 332.1,26.0 334.7,26.0 337.2,26.0 339.7,26.0 342.2,26.0 344.8,26.0 347.3,26.0 349.8,26.0 352.4,26.0 354.9,26.0 357.4,26.0 359.9,26.0 362.4,26.0 365.0,26.0 367.5,26.0 370.0,26.0 372.6,26.0 375.1,26.0 377.6,26.0 380.1,26.0 382.7,26.0 385.2,26.0 387.7,26.0 390.2,26.0 392.8,26.0 395.3,26.0 397.8,26.0 400.3,26.0 402.8,26.0 405.4,26.0 407.9,26.0 410.4,26.0 412.9,26.0 415.5,26.0 418.0,26.0 420.5,26.0 423.1,26.0 425.6,26.0 428.1,26.0 430.6,26.0 433.1,26.0 435.7,26.0 438.2,26.0 440.7,26.0 443.2,26.0 445.8,26.0 448.3,26.0 450.8,26.0 453.4,26.0 455.9,26.0 458.4,26.0 460.9,26.0 463.4,26.0 466.0,26.0 468.5,26.0 471.0,26.0 473.5,26.0 476.1,26.0 478.6,26.0 481.1,26.0 483.6,26.0 486.2,26.0 488.7,26.0 491.2,26.0 493.8,26.0 496.3,26.0 498.8,26.0 501.3,26.0 503.9,26.0 506.4,26.0 508.9,26.0 511.4,26.0 514.0,26.0 516.5,26.0 519.0,26.0 521.5,26.0 524.0,26.0 526.6,26.0 529.1,26.0 531.6,26.0 534.1,26.0 536.7,26.0 539.2,26.0 541.7,26.0 544.2,26.0 546.8,26.0 549.3,26.0 551.8,26.0 554.4,26.0 556.9,26.0 559.4,26.0 561.9,26.0 564.5,26.0 567.0,26.0 569.5,26.0 572.0,26.0 574.5,26.0 577.1,26.0 579.6,26.0 582.1,26.0 584.7,26.0 587.2,26.0 589.7,26.0 592.2,26.0 594.8,26.0 597.3,26.0 599.8,26.0 602.3,26.0 604.8,26.0 607.4,26.0 609.9,26.0 612.4,26.0 615.0,26.0 617.5,26.0 620.0,26.0"></polyline><text class="b" text-anchor="end" x="100" y="86">Retailer</text><line class="grid" x1="115" x2="620" y1="82" y2="82"></line><polyline class="curve plum" points="115.0,82.0 117.5,82.0 120.0,82.0 122.6,82.0 125.1,82.0 127.6,82.0 130.2,82.0 132.7,82.0 135.2,82.0 137.7,82.0 140.2,82.0 142.8,82.0 145.3,82.0 147.8,82.0 150.3,82.0 152.9,82.0 155.4,82.0 157.9,82.0 160.4,82.0 163.0,82.0 165.5,82.0 168.0,82.0 170.6,82.0 173.1,82.0 175.6,82.0 178.1,82.0 180.7,82.0 183.2,82.0 185.7,82.0 188.2,82.0 190.8,82.0 193.3,82.0 195.8,82.0 198.3,82.0 200.9,82.0 203.4,82.0 205.9,82.0 208.4,82.0 210.9,82.0 213.5,82.0 216.0,82.0 218.5,82.0 221.1,82.0 223.6,82.0 226.1,82.0 228.6,82.0 231.2,82.0 233.7,81.6 236.2,81.1 238.7,80.6 241.2,80.0 243.8,79.4 246.3,78.8 248.8,78.2 251.4,77.5 253.9,76.9 256.4,76.3 258.9,75.8 261.4,75.2 264.0,74.8 266.5,74.4 269.0,74.0 271.6,73.7 274.1,73.5 276.6,73.3 279.1,73.2 281.6,73.2 284.2,73.2 286.7,73.3 289.2,73.4 291.8,73.6 294.3,73.9 296.8,74.2 299.3,74.6 301.9,75.0 304.4,75.4 306.9,75.9 309.4,76.5 312.0,77.1 314.5,77.7 317.0,78.3 319.5,79.0 322.0,79.7 324.6,80.4 327.1,81.1 329.6,81.8 332.1,82.5 334.7,83.2 337.2,83.9 339.7,84.6 342.2,85.3 344.8,86.0 347.3,86.6 349.8,87.2 352.4,87.8 354.9,88.3 357.4,88.8 359.9,89.3 362.4,89.7 365.0,90.0 367.5,90.3 370.0,90.6 372.6,90.8 375.1,90.9 377.6,91.0 380.1,91.0 382.7,91.0 385.2,90.9 387.7,90.7 390.2,90.5 392.8,90.3 395.3,90.0 397.8,89.6 400.3,89.2 402.8,88.7 405.4,88.2 407.9,87.7 410.4,87.1 412.9,86.5 415.5,85.9 418.0,85.2 420.5,84.5 423.1,83.8 425.6,83.1 428.1,82.4 430.6,81.7 433.1,81.0 435.7,80.2 438.2,79.5 440.7,78.9 443.2,78.2 445.8,77.6 448.3,76.9 450.8,76.4 453.4,75.8 455.9,75.3 458.4,74.9 460.9,74.4 463.4,74.1 466.0,73.8 468.5,73.5 471.0,73.3 473.5,73.1 476.1,73.0 478.6,73.0 481.1,73.0 483.6,73.1 486.2,73.2 488.7,73.4 491.2,73.7 493.8,74.0 496.3,74.3 498.8,74.7 501.3,75.2 503.9,75.6 506.4,76.2 508.9,76.7 511.4,77.3 514.0,78.0 516.5,78.6 519.0,79.3 521.5,80.0 524.0,80.7 526.6,81.4 529.1,82.1 531.6,82.9 534.1,83.6 536.7,84.3 539.2,85.0 541.7,85.6 544.2,86.3 546.8,86.9 549.3,87.5 551.8,88.0 554.4,88.6 556.9,89.0 559.4,89.5 561.9,89.8 564.5,90.2 567.0,90.4 569.5,90.7 572.0,90.8 574.5,90.9 577.1,91.0 579.6,91.0 582.1,90.9 584.7,90.8 587.2,90.6 589.7,90.4 592.2,90.1 594.8,89.8 597.3,89.4 599.8,89.0 602.3,88.5 604.8,88.0 607.4,87.4 609.9,86.8 612.4,86.2 615.0,85.6 617.5,84.9 620.0,84.2"></polyline><text class="b" text-anchor="end" x="100" y="134">Wholesaler</text><line class="grid" x1="115" x2="620" y1="130" y2="130"></line><polyline class="curve plum" points="115.0,130.0 117.5,130.0 120.0,130.0 122.6,130.0 125.1,130.0 127.6,130.0 130.2,130.0 132.7,130.0 135.2,130.0 137.7,130.0 140.2,130.0 142.8,130.0 145.3,130.0 147.8,130.0 150.3,130.0 152.9,130.0 155.4,130.0 157.9,130.0 160.4,130.0 163.0,130.0 165.5,130.0 168.0,130.0 170.6,130.0 173.1,130.0 175.6,130.0 178.1,130.0 180.7,130.0 183.2,130.0 185.7,130.0 188.2,130.0 190.8,130.0 193.3,130.0 195.8,130.0 198.3,130.0 200.9,130.0 203.4,130.0 205.9,130.0 208.4,130.0 210.9,130.0 213.5,130.0 216.0,130.0 218.5,130.0 221.1,130.0 223.6,130.0 226.1,130.0 228.6,130.0 231.2,130.0 233.7,130.0 236.2,130.0 238.7,130.0 241.2,130.0 243.8,130.0 246.3,130.0 248.8,130.0 251.4,130.0 253.9,130.0 256.4,130.0 258.9,129.3 261.4,128.5 264.0,127.5 266.5,126.5 269.0,125.4 271.6,124.3 274.1,123.2 276.6,122.0 279.1,120.9 281.6,119.9 284.2,118.9 286.7,118.0 289.2,117.2 291.8,116.4 294.3,115.8 296.8,115.3 299.3,114.9 301.9,114.6 304.4,114.4 306.9,114.3 309.4,114.3 312.0,114.5 314.5,114.7 317.0,115.1 319.5,115.5 322.0,116.1 324.6,116.8 327.1,117.5 329.6,118.3 332.1,119.2 334.7,120.2 337.2,121.2 339.7,122.3 342.2,123.5 344.8,124.6 347.3,125.9 349.8,127.1 352.4,128.4 354.9,129.7 357.4,130.9 359.9,132.2 362.4,133.5 365.0,134.7 367.5,135.9 370.0,137.1 372.6,138.2 375.1,139.3 377.6,140.3 380.1,141.2 382.7,142.1 385.2,142.9 387.7,143.6 390.2,144.2 392.8,144.8 395.3,145.2 397.8,145.6 400.3,145.8 402.8,146.0 405.4,146.0 407.9,145.9 410.4,145.8 412.9,145.5 415.5,145.1 418.0,144.7 420.5,144.1 423.1,143.5 425.6,142.8 428.1,141.9 430.6,141.1 433.1,140.1 435.7,139.1 438.2,138.0 440.7,136.9 443.2,135.7 445.8,134.5 448.3,133.2 450.8,132.0 453.4,130.7 455.9,129.4 458.4,128.1 460.9,126.9 463.4,125.6 466.0,124.4 468.5,123.2 471.0,122.1 473.5,121.0 476.1,120.0 478.6,119.0 481.1,118.1 483.6,117.3 486.2,116.6 488.7,115.9 491.2,115.4 493.8,114.9 496.3,114.5 498.8,114.2 501.3,114.1 503.9,114.0 506.4,114.0 508.9,114.2 511.4,114.4 514.0,114.7 516.5,115.2 519.0,115.7 521.5,116.3 524.0,117.0 526.6,117.8 529.1,118.7 531.6,119.6 534.1,120.6 536.7,121.7 539.2,122.8 541.7,124.0 544.2,125.2 546.8,126.4 549.3,127.7 551.8,129.0 554.4,130.2 556.9,131.5 559.4,132.8 561.9,134.0 564.5,135.3 567.0,136.5 569.5,137.6 572.0,138.7 574.5,139.7 577.1,140.7 579.6,141.6 582.1,142.5 584.7,143.2 587.2,143.9 589.7,144.5 592.2,145.0 594.8,145.4 597.3,145.7 599.8,145.9 602.3,146.0 604.8,146.0 607.4,145.9 609.9,145.7 612.4,145.4 615.0,144.9 617.5,144.4 620.0,143.8"></polyline><text class="b" text-anchor="end" x="100" y="182">Distributor</text><line class="grid" x1="115" x2="620" y1="178" y2="178"></line><polyline class="curve plum" points="115.0,178.0 117.5,178.0 120.0,178.0 122.6,178.0 125.1,178.0 127.6,178.0 130.2,178.0 132.7,178.0 135.2,178.0 137.7,178.0 140.2,178.0 142.8,178.0 145.3,178.0 147.8,178.0 150.3,178.0 152.9,178.0 155.4,178.0 157.9,178.0 160.4,178.0 163.0,178.0 165.5,178.0 168.0,178.0 170.6,178.0 173.1,178.0 175.6,178.0 178.1,178.0 180.7,178.0 183.2,178.0 185.7,178.0 188.2,178.0 190.8,178.0 193.3,178.0 195.8,178.0 198.3,178.0 200.9,178.0 203.4,178.0 205.9,178.0 208.4,178.0 210.9,178.0 213.5,178.0 216.0,178.0 218.5,178.0 221.1,178.0 223.6,178.0 226.1,178.0 228.6,178.0 231.2,178.0 233.7,178.0 236.2,178.0 238.7,178.0 241.2,178.0 243.8,178.0 246.3,178.0 248.8,178.0 251.4,178.0 253.9,178.0 256.4,178.0 258.9,178.0 261.4,178.0 264.0,178.0 266.5,178.0 269.0,178.0 271.6,178.0 274.1,178.0 276.6,178.0 279.1,178.0 281.6,178.0 284.2,176.9 286.7,175.6 289.2,174.2 291.8,172.6 294.3,170.9 296.8,169.1 299.3,167.3 301.9,165.6 304.4,163.9 306.9,162.2 309.4,160.7 312.0,159.2 314.5,157.9 317.0,156.8 319.5,155.8 322.0,155.0 324.6,154.3 327.1,153.9 329.6,153.6 332.1,153.5 334.7,153.5 337.2,153.7 339.7,154.1 342.2,154.7 344.8,155.4 347.3,156.3 349.8,157.3 352.4,158.5 354.9,159.7 357.4,161.2 359.9,162.7 362.4,164.3 365.0,166.0 367.5,167.8 370.0,169.6 372.6,171.5 375.1,173.5 377.6,175.5 380.1,177.5 382.7,179.5 385.2,181.4 387.7,183.4 390.2,185.3 392.8,187.2 395.3,189.1 397.8,190.8 400.3,192.5 402.8,194.1 405.4,195.6 407.9,196.9 410.4,198.2 412.9,199.3 415.5,200.3 418.0,201.1 420.5,201.8 423.1,202.3 425.6,202.7 428.1,202.9 430.6,203.0 433.1,202.9 435.7,202.6 438.2,202.2 440.7,201.7 443.2,201.0 445.8,200.1 448.3,199.1 450.8,197.9 453.4,196.7 455.9,195.3 458.4,193.8 460.9,192.2 463.4,190.5 466.0,188.7 468.5,186.9 471.0,185.0 473.5,183.0 476.1,181.1 478.6,179.1 481.1,177.1 483.6,175.1 486.2,173.1 488.7,171.2 491.2,169.3 493.8,167.4 496.3,165.6 498.8,163.9 501.3,162.3 503.9,160.8 506.4,159.4 508.9,158.2 511.4,157.0 514.0,156.0 516.5,155.1 519.0,154.4 521.5,153.8 524.0,153.4 526.6,153.1 529.1,153.0 531.6,153.1 534.1,153.3 536.7,153.6 539.2,154.2 541.7,154.8 544.2,155.7 546.8,156.6 549.3,157.7 551.8,159.0 554.4,160.3 556.9,161.8 559.4,163.4 561.9,165.0 564.5,166.8 567.0,168.6 569.5,170.5 572.0,172.4 574.5,174.4 577.1,176.4 579.6,178.4 582.1,180.4 584.7,182.4 587.2,184.3 589.7,186.2 592.2,188.1 594.8,189.9 597.3,191.6 599.8,193.2 602.3,194.8 604.8,196.2 607.4,197.5 609.9,198.7 612.4,199.8 615.0,200.7 617.5,201.4 620.0,202.1"></polyline><text class="b" text-anchor="end" x="100" y="230">Factory</text><line class="grid" x1="115" x2="620" y1="226" y2="226"></line><polyline class="curve plum" points="115.0,226.0 117.5,226.0 120.0,226.0 122.6,226.0 125.1,226.0 127.6,226.0 130.2,226.0 132.7,226.0 135.2,226.0 137.7,226.0 140.2,226.0 142.8,226.0 145.3,226.0 147.8,226.0 150.3,226.0 152.9,226.0 155.4,226.0 157.9,226.0 160.4,226.0 163.0,226.0 165.5,226.0 168.0,226.0 170.6,226.0 173.1,226.0 175.6,226.0 178.1,226.0 180.7,226.0 183.2,226.0 185.7,226.0 188.2,226.0 190.8,226.0 193.3,226.0 195.8,226.0 198.3,226.0 200.9,226.0 203.4,226.0 205.9,226.0 208.4,226.0 210.9,226.0 213.5,226.0 216.0,226.0 218.5,226.0 221.1,226.0 223.6,226.0 226.1,226.0 228.6,226.0 231.2,226.0 233.7,226.0 236.2,226.0 238.7,226.0 241.2,226.0 243.8,226.0 246.3,226.0 248.8,226.0 251.4,226.0 253.9,226.0 256.4,226.0 258.9,226.0 261.4,226.0 264.0,226.0 266.5,226.0 269.0,226.0 271.6,226.0 274.1,226.0 276.6,226.0 279.1,226.0 281.6,226.0 284.2,226.0 286.7,226.0 289.2,226.0 291.8,226.0 294.3,226.0 296.8,226.0 299.3,226.0 301.9,226.0 304.4,226.0 306.9,226.0 309.4,224.4 312.0,222.6 314.5,220.5 317.0,218.2 319.5,215.8 322.0,213.2 324.6,210.7 327.1,208.1 329.6,205.6 332.1,203.3 334.7,201.0 337.2,199.0 339.7,197.1 342.2,195.5 344.8,194.0 347.3,192.9 349.8,191.9 352.4,191.3 354.9,190.8 357.4,190.7 359.9,190.7 362.4,191.1 365.0,191.6 367.5,192.4 370.0,193.5 372.6,194.7 375.1,196.2 377.6,197.9 380.1,199.7 382.7,201.7 385.2,203.9 387.7,206.3 390.2,208.7 392.8,211.3 395.3,214.0 397.8,216.7 400.3,219.5 402.8,222.4 405.4,225.2 407.9,228.1 410.4,231.0 412.9,233.8 415.5,236.6 418.0,239.3 420.5,241.9 423.1,244.5 425.6,246.9 428.1,249.1 430.6,251.3 433.1,253.2 435.7,255.0 438.2,256.6 440.7,258.1 443.2,259.3 445.8,260.3 448.3,261.0 450.8,261.6 453.4,261.9 455.9,262.0 458.4,261.9 460.9,261.5 463.4,260.9 466.0,260.1 468.5,259.1 471.0,257.8 473.5,256.4 476.1,254.7 478.6,252.9 481.1,250.9 483.6,248.7 486.2,246.4 488.7,244.0 491.2,241.4 493.8,238.8 496.3,236.1 498.8,233.3 501.3,230.4 503.9,227.6 506.4,224.7 508.9,221.8 511.4,219.0 514.0,216.2 516.5,213.4 519.0,210.8 521.5,208.2 524.0,205.8 526.6,203.5 529.1,201.3 531.6,199.3 534.1,197.4 536.7,195.8 539.2,194.3 541.7,193.0 544.2,192.0 546.8,191.2 549.3,190.5 551.8,190.2 554.4,190.0 556.9,190.1 559.4,190.4 561.9,190.9 564.5,191.7 567.0,192.6 569.5,193.8 572.0,195.2 574.5,196.8 577.1,198.6 579.6,200.6 582.1,202.7 584.7,204.9 587.2,207.3 589.7,209.9 592.2,212.5 594.8,215.2 597.3,218.0 599.8,220.8 602.3,223.7 604.8,226.5 607.4,229.4 609.9,232.3 612.4,235.1 615.0,237.8 617.5,240.5 620.0,243.1"></polyline><path class="st" d="M630 40 V 222" marker-end="url(#a-bw)"></path><text class="s" text-anchor="middle" transform="rotate(90 636 140)" x="636" y="140">upstream</text></svg></div><figcaption>The bullwhip effect: a small, one-time step in customer demand swings harder and later at every tier up the chain.</figcaption></figure>
+<p><strong>Lessons:</strong></p>
+<ul>
+<li>Delays create overshooting</li>
+<li>Lack of system-wide information → Wrong decisions</li>
+<li>Blaming others → It's actually the system structure</li>
+</ul>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="module" id="module-3">
+<div aria-expanded="false" class="module-header" role="button" tabindex="0"><span aria-hidden="true" class="m-num">4</span><span class="m-text"><h2>Tools to Visualize Invisible Structures</h2><span class="m-meta">5–6 hours <span aria-hidden="true" class="sep"></span> Intermediate</span></span><span aria-hidden="true" class="m-toggle"></span></div>
+<div class="module-content">
+<div class="module-body"><div class="pad">
+<div class="section">
+<h3><span class="s-num">4.1</span> The Iceberg Model</h3>
+<p>The Iceberg Model is a powerful tool to move from surface events down to deeper structures and root beliefs.</p>
+<div class="iceberg-visual">
+<div class="iceberg-layer depth-0"><h4>Events<span class="depth">Above water (10%)</span></h4><p><strong>Question:</strong> What is happening? Specific incidents, daily situations — what we react to immediately.<br/><strong>Intervention:</strong> Reactive</p></div><div aria-hidden="true" class="waterline"><svg preserveaspectratio="none" viewbox="0 0 400 12"><path d="M0 6 Q 12.5 0 25 6 T 50 6 T 75 6 T 100 6 T 125 6 T 150 6 T 175 6 T 200 6 T 225 6 T 250 6 T 275 6 T 300 6 T 325 6 T 350 6 T 375 6 T 400 6"></path></svg><span>Waterline</span></div>
+<div class="iceberg-layer depth-1"><h4>Patterns<span class="depth">Just below the surface (20%)</span></h4><p><strong>Question:</strong> What repeats over time? Trends, cycles, recurring behaviors — allows prediction.<br/><strong>Intervention:</strong> Anticipate</p></div>
+<div class="iceberg-layer depth-2"><h4>Structures<span class="depth">Deeper (30%)</span></h4><p><strong>Question:</strong> What structures create these patterns? Rules, policies, processes, reward systems, power distribution.<br/><strong>Intervention:</strong> Design</p></div>
+<div class="iceberg-layer depth-3"><h4>Mental models<span class="depth">Deepest (40%)</span></h4><p><strong>Question:</strong> What beliefs/assumptions hold these structures in place? Values, beliefs, worldviews, assumptions about how the world works.<br/><strong>Intervention:</strong> Transform</p></div>
+</div>
+<div class="example">
+<h4>Example: Employee Turnover</h4>
+<ul>
+<li><strong>Events:</strong> “Two top employees resigned today.”</li>
+<li><strong>Patterns:</strong> “8 top employees have resigned in the last 3 months, turnover rate is 25%.”</li>
+<li><strong>Structures:</strong> “Performance reviews are based only on short-term KPIs, no career development, below-market pay.”</li>
+<li><strong>Mental Models:</strong> “Employees are a cost, not an asset”; “Paying minimum wage is enough because they have no options.”</li>
+</ul>
+<p><strong>Solutions at each level:</strong></p>
+<ul>
+<li>Events: Hire new people (temporary)</li>
+<li>Patterns: Employee surveys, salary benchmarking</li>
+<li>Structures: Redesign performance system, create development paths</li>
+<li>Mental Models: Shift leadership beliefs about human value</li>
+</ul>
+</div>
+<div class="exercise">
+<h4>Exercise: Analyze a Problem Using the Iceberg</h4>
+<p>Choose a current problem you face:</p>
+<ol>
+<li><strong>Events:</strong> Describe the most recent specific incident</li>
+<li><strong>Patterns:</strong> How often has this happened? When? With whom?</li>
+<li><strong>Structures:</strong> What rules, processes, or systems create this pattern?</li>
+<li><strong>Mental Models:</strong> What beliefs/assumptions hold this structure in place?</li>
+<li><strong>Intervention:</strong> At which level can you act? Which level offers the highest leverage?</li>
+</ol>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Template: Iceberg Worksheet</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div style="border:1px solid var(--line); border-radius:12px; padding:1.25rem; background:var(--surface-2);">
+<h4 style="margin-top:0;">ICEBERG MODEL WORKSHEET</h4>
+<p><strong>Problem:</strong> _________________________________</p>
+<hr style="border:none; border-top:1px dashed var(--line-strong); margin:0.75rem 0;"/>
+<p><strong>1. EVENTS</strong><br/>What is happening? Describe the specific event:</p>
+<div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<hr style="border:none; border-top:1px dashed var(--line-strong); margin:0.75rem 0;"/>
+<p><strong>2. PATTERNS</strong><br/>When has this happened before? What trends?</p>
+<div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<hr style="border:none; border-top:1px dashed var(--line-strong); margin:0.75rem 0;"/>
+<p><strong>3. STRUCTURES</strong><br/>What rules, policies, or processes create this pattern?</p>
+<div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<hr style="border:none; border-top:1px dashed var(--line-strong); margin:0.75rem 0;"/>
+<p><strong>4. MENTAL MODELS</strong><br/>What beliefs, assumptions, or values hold this structure?</p>
+<div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<hr style="border:none; border-top:1px dashed var(--line-strong); margin:0.75rem 0;"/>
+<p><strong>5. INTERVENTION</strong><br/>At which level will you intervene? Specific actions?</p>
+<div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">4.2</span> Actor Mapping</h3>
+<p>Actor Mapping helps identify stakeholders, power relationships, and influence flows within a social system.</p>
+<h4>Steps:</h4>
+<ol>
+<li><strong>Define the topic:</strong> What is the problem or system goal?</li>
+<li><strong>Draw the system boundary:</strong> Draw a large circle (system) and a small inner circle (core interest).</li>
+<li><strong>List actors:</strong> Who influences or is affected by the issue?</li>
+<li><strong>Place on the map:</strong> Position based on influence (closer to center = higher influence).</li>
+<li><strong>Draw connections:</strong> Arrows showing influence, collaboration, or conflict.</li>
+<li><strong>Analyze:</strong> Which clusters exist? Where are blockages? What are leverage points?</li>
+</ol>
+<figure class="fig"><div class="fig-scroll"><svg aria-label="Actor map of a local education system" role="img" viewbox="0 0 640 405"><defs><marker id="a-actor" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-actor" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-actor" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><circle class="ring r3" cx="320" cy="205" r="190"></circle><circle class="ring r2" cx="320" cy="205" r="128"></circle><circle class="ring r1" cx="320" cy="205" r="62"></circle><text class="s" text-anchor="middle" x="320" y="33">outer ring</text><text class="s" text-anchor="middle" x="320" y="95">inner ring</text><path class="st" d="M458 305 Q407 315 356 301" marker-end="url(#a-actor)"></path><path class="st" d="M338 286 Q348 216 401 177" marker-end="url(#a-actor)"></path><path class="st" d="M392 161 Q323 195 254 161" marker-end="url(#a-actor)"></path><path class="st" d="M247 166 Q263 183 284 185" marker-end="url(#a-actor)"></path><path class="st teal" d="M299 217 Q264 210 249 172" marker-end="url(#t-actor)" marker-start="url(#t-actor)"></path><path class="st plum" d="M455 93 Q454 122 440 144" marker-end="url(#p-actor)"></path><rect class="bx core" height="26" rx="13.0" width="77.2" x="279.4" y="178.0"></rect><text class="b" text-anchor="middle" x="318.0" y="195.5">Students</text><rect class="bx core" height="26" rx="13.0" width="69.80000000000001" x="289.1" y="214.0"></rect><text class="b" text-anchor="middle" x="324.0" y="231.5">Parents</text><rect class="bx" height="26" rx="13.0" width="77.2" x="179.4" y="148.0"></rect><text class="b" text-anchor="middle" x="218.0" y="165.5">Teachers</text><rect class="bx" height="26" rx="13.0" width="92.0" x="376.0" y="148.0"></rect><text class="b" text-anchor="middle" x="422.0" y="165.5">Principals</text><rect class="bx" height="26" rx="13.0" width="129.0" x="255.5" y="288.0"></rect><text class="b" text-anchor="middle" x="320.0" y="305.5">District office</text><rect class="bx" height="26" rx="13.0" width="114.2" x="430.9" y="292.0"></rect><text class="b" text-anchor="middle" x="488.0" y="309.5">Province dept</text><rect class="bx" height="26" rx="13.0" width="136.4" x="91.8" y="296.0"></rect><text class="b" text-anchor="middle" x="160.0" y="313.5">Local government</text><rect class="bx" height="26" rx="13.0" width="92.0" x="424.0" y="64.0"></rect><text class="b" text-anchor="middle" x="470.0" y="81.5">Businesses</text><rect class="bx" height="26" rx="13.0" width="64" x="138.0" y="64.0"></rect><text class="b" text-anchor="middle" x="170.0" y="81.5">NGOs</text><g class="legend"><line class="st" x1="20" x2="46" y1="392" y2="392"></line><text class="s" x="52" y="396">top-down power</text><line class="st teal" x1="160" x2="186" y1="392" y2="392"></line><text class="s" x="192" y="396">two-way feedback</text><line class="st plum" x1="312" x2="338" y1="392" y2="392"></line><text class="s" x="344" y="396">hiring, sponsorship</text></g></svg></div><figcaption>Actor map for a local education system. Closer to the centre means closer to the core interest.</figcaption></figure><div class="example">
+<h4>Example: Local Education System</h4>
+<p><strong>Key actors:</strong></p>
+<ul>
+<li>Center: Students, Parents</li>
+<li>Inner ring: Teachers, Principals, District education office</li>
+<li>Outer ring: Provincial education dept, local government, businesses, NGOs</li>
+</ul>
+<p><strong>Important connections:</strong></p>
+<ul>
+<li>Province → District → School → Teacher → Student (top-down power)</li>
+<li>Parents ↔ Teachers (two-way feedback)</li>
+<li>Businesses → Schools (hiring, sponsorship)</li>
+</ul>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Template: Actor Mapping Canvas</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>Guiding Questions:</h4>
+<ul>
+<li>Who are the primary beneficiaries?</li>
+<li>Who holds power/makes decisions?</li>
+<li>Who has critical information?</li>
+<li>Who has resources (money, people, influence)?</li>
+<li>Who is negatively affected?</li>
+<li>Who can block or support?</li>
+</ul>
+<h4>Symbols:</h4>
+<ul>
+<li>→ : One-way influence</li>
+<li>↔ : Collaboration/Two-way</li>
+<li>⚡ : Conflict</li>
+<li>💰 : Money flow</li>
+<li>📊 : Information flow</li>
+</ul>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">4.3</span> Ecocycle Mapping</h3>
+<p>Ecocycle Mapping, based on adaptive cycle theory, helps understand the stages of development, conservation, creative destruction, and renewal in organizations/projects.</p><figure class="fig"><div class="fig-scroll"><svg aria-label="Ecocycle adaptive cycle" role="img" viewbox="0 0 640 310"><defs><marker id="a-eco" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-eco" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-eco" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><path class="curve teal fat" d="M194.7 219.5 L200.9 218.4 L206.9 217.0 L212.7 215.4 L218.4 213.6 L224.0 211.6 L229.4 209.4 L234.7 207.1 L239.9 204.6 L244.9 202.1 L249.8 199.4 L254.6 196.6 L259.3 193.7 L263.8 190.8 L268.3 187.7 L272.6 184.7 L276.9 181.5 L281.1 178.3 L285.2 175.1 L289.2 171.8 L293.2 168.6 L297.1 165.2 L301.0 161.9 L304.8 158.5 L308.7 155.2 L312.5 151.8 L316.2 148.4 L320.0 145.0 L323.8 141.6 L327.5 138.2 L331.3 134.8 L335.2 131.5 L339.0 128.1 L342.9 124.8 L346.8 121.4 L350.8 118.2 L354.8 114.9 L358.9 111.7 L363.1 108.5 L367.4 105.3 L371.7 102.3 L376.2 99.2 L380.7 96.3 L385.4 93.4 L390.2 90.6 L395.1 87.9 L400.1 85.4 L405.3 82.9 L410.6 80.6 L416.0 78.4 L421.6 76.4 L427.3 74.6 L433.1 73.0 L439.1 71.6 L445.3 70.5 L451.5 69.6 L457.9 69.0 L464.3 68.7 L470.8 68.7 L477.4 69.1 L484.1 69.8 L490.7 71.0 L497.3 72.6 L503.8 74.6 L510.3 77.0 L516.5 79.9 L522.6 83.2 L528.4 87.1 L533.8 91.3 L538.9 96.0 L543.6 101.1 L547.8 106.6 L551.4 112.4 L554.4 118.6 L556.8 124.9 L558.6 131.5 L559.6 138.2 L560.0 145.0 L559.6 151.8 L558.6 158.5 L556.8 165.1" marker-end="url(#t-eco)"></path><path class="curve plum fat dashc" d="M551.4 177.6 L546.1 185.6 L539.9 193.0 L532.8 199.6 L524.9 205.3 L516.5 210.1 L507.7 214.0 L498.6 217.1 L489.4 219.3 L480.1 220.7 L470.8 221.3 L461.7 221.3 L452.8 220.6 L444.0 219.3 L435.5 217.6 L427.3 215.4 L419.3 212.8 L411.6 209.8 L404.2 206.6 L397.1 203.1 L390.2 199.4 L383.5 195.4 L377.1 191.4 L370.9 187.1 L364.8 182.8 L358.9 178.3 L353.2 173.8 L347.6 169.2 L342.1 164.6 L336.7 159.9 L331.3 155.2 L326.0 150.4 L320.8 145.7 L315.5 140.9 L310.2 136.2 L304.8 131.5 L299.4 126.8 L294.0 122.1 L288.4 117.5 L282.7 113.0 L276.9 108.5 L270.9 104.1 L264.7 99.8 L258.3 95.7 L251.7 91.7 L244.9 87.9 L237.8 84.4 L230.5 81.1 L222.9 78.0 L215.0 75.3 L206.9 73.0 L198.4 71.1 L189.8 69.7 L180.9 68.9 L171.8 68.6 L162.6 69.1 L153.3 70.2 L144.0 72.2 L134.9 75.0 L126.0 78.7 L117.4 83.2 L109.4 88.7 L102.1 95.0 L95.5 102.2 L90.0 110.1 L85.6 118.6 L82.4 127.6 L80.5 136.9 L80.0 146.4 L80.9 155.8 L83.2 165.1 L86.7 173.9 L91.5 182.3 L97.3 189.9 L104.1 196.9 L111.6 202.9 L119.8 208.2 L128.5 212.5 L137.5 215.9 L146.7 218.4 L155.9 220.2" marker-end="url(#p-eco)"></path><text class="big2 teal-t" text-anchor="middle" x="160" y="268">r</text><text class="b" text-anchor="middle" x="160" y="286">Exploitation</text><text class="s" text-anchor="middle" x="160" y="301">fast growth, experiments</text><text class="big2 teal-t" text-anchor="middle" x="480" y="24">K</text><text class="b" text-anchor="middle" x="480" y="42">Conservation</text><text class="s" text-anchor="middle" x="480" y="57">efficient, but rigid</text><text class="big2 plum-t" text-anchor="middle" x="480" y="268">Ω</text><text class="b" text-anchor="middle" x="480" y="286">Release</text><text class="s" text-anchor="middle" x="480" y="301">crisis frees resources</text><text class="big2 plum-t" text-anchor="middle" x="160" y="24">α</text><text class="b" text-anchor="middle" x="160" y="42">Reorganization</text><text class="s" text-anchor="middle" x="160" y="57">renewal, new cycle</text></svg></div><figcaption>The adaptive cycle behind ecocycle mapping: a slow front loop of build-up (solid) and a fast back loop of release and renewal (dashed). Organisations move through all four phases; trouble comes from clinging to K.</figcaption></figure>
+<div class="diagram">
+<div class="diagram-title">4 Stages of the Ecocycle</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem;">
+<div class="tool-card"><h4>r: Exploitation</h4><p>Startup, rapid growth, new opportunities, experimentation</p></div>
+<div class="tool-card"><h4>K: Conservation</h4><p>Stability, high efficiency, resource accumulation, but rigidity</p></div>
+<div class="tool-card"><h4>Ω: Release</h4><p>Crisis, resource liberation, breaking old structures</p></div>
+<div class="tool-card"><h4>α: Reorganization</h4><p>Renewal, reinvestment, start of a new cycle</p></div>
+</div>
+</div>
+<h4>Applications:</h4>
+<ul>
+<li><strong>Diagnosis:</strong> What stage is the organization/project in?</li>
+<li><strong>Strategy:</strong> Actions appropriate to the stage</li>
+<li><strong>Portfolio:</strong> Balance projects across different stages</li>
+</ul>
+<div class="example">
+<h4>Example: Startup Company</h4>
+<ul>
+<li><strong>r (2018–2020):</strong> 200% annual growth, experimenting with many models</li>
+<li><strong>K (2021–2023):</strong> Stabilizing, optimizing, process-driven, but losing creativity</li>
+<li><strong>Ω (2024):</strong> Pandemic, market crash, 40% workforce reduction</li>
+<li><strong>α (2025–):</strong> Focus on core product, new business model, new culture</li>
+</ul>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Ecocycle Matrix: Questions for Each Stage</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div class="table-wrap"><table class="comparison-table">
+<thead><tr><th>Stage</th><th>Strategic Question</th><th>Appropriate Action</th></tr></thead>
+<tbody>
+<tr><td><strong>r (Exploitation)</strong></td><td>What opportunities are untapped? What to experiment with?</td><td>Invest, experiment, scale fast</td></tr>
+<tr><td><strong>K (Conservation)</strong></td><td>How to optimize? How to sustain?</td><td>Processize, accumulate, protect</td></tr>
+<tr><td><strong>Ω (Release)</strong></td><td>What to let go? What to keep?</td><td>Cut, liberate, learn</td></tr>
+<tr><td><strong>α (Reorganization)</strong></td><td>What new can be built? What lessons learned?</td><td>Innovate, reinvest, restart</td></tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">4.4</span> Trend Mapping &amp; Timeline</h3>
+<p>Placing the problem in historical context to find long-term behavioral patterns.</p>
+<h4>Steps:</h4>
+<ol>
+<li>Draw a timeline (5–10–20 years)</li>
+<li>Mark significant events</li>
+<li>Draw trends (up/down/oscillating)</li>
+<li>Identify cycles (if any)</li>
+<li>Analyze: What repeats? What changes?</li>
+</ol>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Template: Timeline Analysis</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>Sample Timeline (10 years):</h4>
+<div style="border:1px solid var(--line); border-radius:12px; padding:1rem; background:var(--surface-2); overflow-x:auto;">
+<div style="display:flex; justify-content:space-between; margin-bottom:10px; min-width:560px; font-size:0.85rem;">
+<span>2016</span><span>2017</span><span>2018</span><span>2019</span><span>2020</span>
+<span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span>
+</div>
+<div style="border-top:3px solid var(--ink); position:relative; height:70px; min-width:560px;">
+<div style="position:absolute; top:-20px; left:5%;">📌 Event 1</div>
+<div style="position:absolute; top:-20px; left:25%;">📌 Event 2</div>
+<div style="position:absolute; top:-20px; left:55%;">📌 Event 3</div>
+<div style="position:absolute; top:-20px; left:85%;">📌 Event 4</div>
+</div>
+</div>
+<h4>Analysis Questions:</h4>
+<ul>
+<li>Are there repeating cycles? (e.g., 3–5 years)</li>
+<li>What changed before/after major events?</li>
+<li>What is the long-term trend? (up, down, stable)</li>
+<li>Where are the tipping points?</li>
+</ul>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="module" id="module-4">
+<div aria-expanded="false" class="module-header" role="button" tabindex="0"><span aria-hidden="true" class="m-num">5</span><span class="m-text"><h2>System Reasoning &amp; Collective Modeling</h2><span class="m-meta">4–5 hours <span aria-hidden="true" class="sep"></span> Advanced</span></span><span aria-hidden="true" class="m-toggle"></span></div>
+<div class="module-content">
+<div class="module-body"><div class="pad">
+<div class="section">
+<h3><span class="s-num">5.1</span> Collective System Reasoning</h3>
+<p>Instead of giving personal opinions, build proposals based on solid, linked, and transparent reasoning.</p>
+<h4>Structure of a system argument:</h4>
+<ol>
+<li><strong>Observation:</strong> “What data/events do we see?”</li>
+<li><strong>Analysis:</strong> “What patterns/structures create this?”</li>
+<li><strong>Assumptions:</strong> “What assumptions are we using?”</li>
+<li><strong>Conclusion:</strong> “So, what should we do?”</li>
+</ol>
+<div class="key-concept">
+<h4>Principle</h4>
+<p><strong>“Separate observation from interpretation.”</strong></p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Skill: Ladder of Inference</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<p>The Ladder of Inference helps reveal how we move from data to conclusions.</p>
+<figure class="fig"><div class="fig-scroll"><svg aria-label="Ladder of inference" role="img" viewbox="0 0 640 365"><defs><marker id="a-lad" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-lad" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-lad" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><line class="rail" x1="230" x2="230" y1="30" y2="350"></line><line class="rail" x1="300" x2="300" y1="30" y2="350"></line><line class="rung" x1="230" x2="300" y1="340" y2="340"></line><text class="b" x="318" y="345">Observable data</text><text class="s" text-anchor="end" x="215" y="345">1</text><line class="rung" x1="230" x2="300" y1="290" y2="290"></line><text class="b" x="318" y="295">Select data</text><text class="s" text-anchor="end" x="215" y="295">2</text><line class="rung" x1="230" x2="300" y1="240" y2="240"></line><text class="b" x="318" y="245">Add meaning</text><text class="s" text-anchor="end" x="215" y="245">3</text><line class="rung" x1="230" x2="300" y1="190" y2="190"></line><text class="b" x="318" y="195">Make assumptions</text><text class="s" text-anchor="end" x="215" y="195">4</text><line class="rung" x1="230" x2="300" y1="140" y2="140"></line><text class="b" x="318" y="145">Draw conclusions</text><text class="s" text-anchor="end" x="215" y="145">5</text><line class="rung" x1="230" x2="300" y1="90" y2="90"></line><text class="b" x="318" y="95">Adopt beliefs</text><text class="s" text-anchor="end" x="215" y="95">6</text><line class="rung" x1="230" x2="300" y1="40" y2="40"></line><text class="b" x="318" y="45">Take actions</text><text class="s" text-anchor="end" x="215" y="45">7</text><path class="st plum" d="M490 90 C 610 90, 600 290, 450 290" marker-end="url(#p-lad)"></path><text class="s plum-t" text-anchor="middle" x="596" y="184">beliefs shape</text><text class="s plum-t" text-anchor="middle" x="596" y="200">what we notice</text><path class="st teal" d="M120 70 V 300" marker-end="url(#t-lad)"></path><text class="s teal-t" text-anchor="middle" transform="rotate(-90 108 190)" x="108" y="190">go back down in a conflict</text></svg></div><figcaption>The ladder of inference. The reflexive loop means our beliefs quietly filter which data we select next time.</figcaption></figure>
+<p><strong>Practice:</strong> In a conflict, “go down the ladder” — ask: “What data did you see? I saw different data…”</p>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">5.2</span> Structuring Inquiry</h3>
+<p>Asking the right questions to explore the system rather than giving premature answers.</p>
+<h4>Types of system questions:</h4>
+<ul>
+<li><strong>About elements:</strong> “Who/what are the components of this system?”</li>
+<li><strong>About connections:</strong> “How do the components interact?”</li>
+<li><strong>About purpose:</strong> “What purpose is this system truly serving?”</li>
+<li><strong>About time:</strong> “When did this happen before? When will it happen again?”</li>
+<li><strong>About perspective:</strong> “How do others in the system see it?”</li>
+</ul>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>The 5 Whys</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<p>The 5 Whys technique asks “Why” five times to move from symptom to root cause.</p>
+<div class="example">
+<h4>Example: Machine Stopped</h4>
+<ol>
+<li>Why did the machine stop? → Overload, fuse blew</li>
+<li>Why was it overloaded? → Bearing lacked lubrication</li>
+<li>Why was lubrication insufficient? → Oil pump wasn't working</li>
+<li>Why wasn't the pump working? → Pump shaft was worn</li>
+<li>Why was the shaft worn? → No filter, dust got in → <strong>Root cause!</strong></li>
+</ol>
+<p><strong>Solution:</strong> Install a filter, not keep replacing fuses.</p>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">5.3</span> Top-Down Elaboration (TDE)</h3>
+<p>A tool to summarize a project/problem on a single page to create conceptual alignment.</p>
+<div class="tools-grid">
+<div class="tool-card">
+<h4>TDE Structure (1 page)</h4>
+<ol>
+<li><strong>Title:</strong> Project/problem name</li>
+<li><strong>Context:</strong> Why does this matter?</li>
+<li><strong>Purpose:</strong> What is the ultimate goal?</li>
+<li><strong>Scope:</strong> What's in/out of the system?</li>
+<li><strong>Key stakeholders:</strong> Who matters?</li>
+<li><strong>Core structure:</strong> 3–5 key elements</li>
+<li><strong>Risks/Assumptions:</strong> What could go wrong?</li>
+<li><strong>Next steps:</strong> Immediate actions</li>
+</ol>
+</div>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Template: TDE One-Pager</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div style="border:1px solid var(--line); border-radius:12px; padding:1.25rem; background:var(--surface-2);">
+<h4 style="margin-top:0; text-align:center;">TOP-DOWN ELABORATION</h4>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+<div><p><strong>1. Title:</strong> ___________________</p><p><strong>2. Context:</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:50px; border:1px solid var(--line);"></div></div>
+<div><p><strong>3. Purpose:</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:50px; border:1px solid var(--line);"></div></div>
+</div>
+<p><strong>4. Scope (In/Out):</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<p><strong>5. Key Stakeholders:</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<p><strong>6. Core Structure (3–5 elements):</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:50px; border:1px solid var(--line);"></div>
+<p><strong>7. Risks/Assumptions:</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+<p><strong>8. Next Steps:</strong></p><div class="field" style="background:var(--surface); padding:0.5rem; border-radius:6px; min-height:40px; border:1px solid var(--line);"></div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">5.4</span> Modeling Together</h3>
+<p>Using diagramming as a conversation to surface hidden assumptions and create shared understanding.</p>
+<h4>Process:</h4>
+<ol>
+<li><strong>Prepare:</strong> Whiteboard, large paper, sticky notes, markers</li>
+<li><strong>Start:</strong> One person draws the first element</li>
+<li><strong>Build:</strong> Each person adds an element/connection</li>
+<li><strong>Challenge:</strong> “Is this accurate? What's missing?”</li>
+<li><strong>Finalize:</strong> Agree on the common version</li>
+</ol>
+<div class="key-concept">
+<h4>Benefits</h4>
+<ul>
+<li>Surface different assumptions</li>
+<li>Create a common language</li>
+<li>Identify gaps in understanding</li>
+<li>Increase ownership and commitment</li>
+</ul>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Facilitation Tips</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>For an effective session:</h4>
+<ul>
+<li><strong>Psychological safety:</strong> No “wrong” ideas, only “incomplete” ones</li>
+<li><strong>Equal voice:</strong> Invite quieter people first, leaders speak later</li>
+<li><strong>Visual first:</strong> Draw before discussing — avoid invisible debates</li>
+<li><strong>Time box:</strong> Limit each step (10–15 minutes)</li>
+<li><strong>Document:</strong> Take photos, notes, share afterward</li>
+</ul>
+<h4>Facilitator questions:</h4>
+<ul>
+<li>“What's missing?”</li>
+<li>“What's not right?”</li>
+<li>“How do others see it?”</li>
+<li>“What is the story here?”</li>
+</ul>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="module" id="module-5">
+<div aria-expanded="false" class="module-header" role="button" tabindex="0"><span aria-hidden="true" class="m-num">6</span><span class="m-text"><h2>Practical Application &amp; Systems Leadership</h2><span class="m-meta">5–6 hours <span aria-hidden="true" class="sep"></span> Advanced</span></span><span aria-hidden="true" class="m-toggle"></span></div>
+<div class="module-content">
+<div class="module-body"><div class="pad">
+<div class="section">
+<h3><span class="s-num">6.1</span> Finding Leverage Points</h3>
+<p>Leverage points are places where a small change can create a large, lasting impact on the entire system. Donella Meadows (1999) identified 12 leverage points, from low to high:</p>
+<div class="tools-grid">
+<div class="tool-card" style="background:var(--surface-2);">
+<h4>Low Leverage (Visible, less effective)</h4>
+<ol>
+<li>Constants, parameters (numbers, standards)</li>
+<li>Buffers (reservoirs)</li>
+<li>Stock-and-flow structures (physical layout)</li>
+<li>Delays</li>
+<li>Balancing loops</li>
+<li>Reinforcing loops</li>
+</ol>
+</div>
+<div class="tool-card" style="background:var(--surface-2);">
+<h4>High Leverage (Hidden, highly effective)</h4>
+<ol>
+<li>Information flows</li>
+<li>Rules (incentives, constraints)</li>
+<li>Self-organization</li>
+<li>Goals (system purpose)</li>
+<li><strong>Paradigms (mindset)</strong></li>
+<li><strong>Transcending paradigms</strong></li>
+</ol>
+</div>
+</div><figure class="fig"><div class="fig-scroll"><svg aria-label="Twelve leverage points" role="img" viewbox="0 0 640 295"><defs><marker id="a-lev" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-lev" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-lev" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><line class="axis" x1="50" x2="624" y1="210" y2="210"></line><rect class="lev" height="18" rx="3" style="opacity:0.18" width="40" x="60" y="192"></rect><text class="b" text-anchor="middle" x="80.0" y="186">12</text><text class="s" text-anchor="end" transform="rotate(-40 80.0 224)" x="80.0" y="224">Numbers</text><rect class="lev" height="32" rx="3" style="opacity:0.25" width="40" x="107" y="178"></rect><text class="b" text-anchor="middle" x="127.0" y="172">11</text><text class="s" text-anchor="end" transform="rotate(-40 127.0 224)" x="127.0" y="224">Buffers</text><rect class="lev" height="45" rx="3" style="opacity:0.32" width="40" x="154" y="165"></rect><text class="b" text-anchor="middle" x="174.0" y="159">10</text><text class="s" text-anchor="end" transform="rotate(-40 174.0 224)" x="174.0" y="224">Stock-flow</text><rect class="lev" height="58" rx="3" style="opacity:0.39" width="40" x="201" y="152"></rect><text class="b" text-anchor="middle" x="221.0" y="146">9</text><text class="s" text-anchor="end" transform="rotate(-40 221.0 224)" x="221.0" y="224">Delays</text><rect class="lev" height="72" rx="3" style="opacity:0.46" width="40" x="248" y="138"></rect><text class="b" text-anchor="middle" x="268.0" y="132">8</text><text class="s" text-anchor="end" transform="rotate(-40 268.0 224)" x="268.0" y="224">Balancing</text><rect class="lev" height="86" rx="3" style="opacity:0.53" width="40" x="295" y="124"></rect><text class="b" text-anchor="middle" x="315.0" y="118">7</text><text class="s" text-anchor="end" transform="rotate(-40 315.0 224)" x="315.0" y="224">Reinforcing</text><rect class="lev" height="99" rx="3" style="opacity:0.60" width="40" x="342" y="111"></rect><text class="b" text-anchor="middle" x="362.0" y="105">6</text><text class="s" text-anchor="end" transform="rotate(-40 362.0 224)" x="362.0" y="224">Information</text><rect class="lev" height="112" rx="3" style="opacity:0.67" width="40" x="389" y="98"></rect><text class="b" text-anchor="middle" x="409.0" y="92">5</text><text class="s" text-anchor="end" transform="rotate(-40 409.0 224)" x="409.0" y="224">Rules</text><rect class="lev" height="126" rx="3" style="opacity:0.74" width="40" x="436" y="84"></rect><text class="b" text-anchor="middle" x="456.0" y="78">4</text><text class="s" text-anchor="end" transform="rotate(-40 456.0 224)" x="456.0" y="224">Self-org.</text><rect class="lev" height="140" rx="3" style="opacity:0.81" width="40" x="483" y="70"></rect><text class="b" text-anchor="middle" x="503.0" y="64">3</text><text class="s" text-anchor="end" transform="rotate(-40 503.0 224)" x="503.0" y="224">Goals</text><rect class="lev" height="153" rx="3" style="opacity:0.88" width="40" x="530" y="57"></rect><text class="b" text-anchor="middle" x="550.0" y="51">2</text><text class="s" text-anchor="end" transform="rotate(-40 550.0 224)" x="550.0" y="224">Paradigms</text><rect class="lev" height="166" rx="3" style="opacity:0.95" width="40" x="577" y="44"></rect><text class="b" text-anchor="middle" x="597.0" y="38">1</text><text class="s" text-anchor="end" transform="rotate(-40 597.0 224)" x="597.0" y="224">Beyond</text><path class="st" d="M60 30 H 330" marker-end="url(#a-lev)"></path><text class="s" x="60" y="22">more hidden, harder to change, more powerful</text><text class="s" text-anchor="end" x="620" y="286">Bar height: relative leverage (illustrative)</text></svg></div><figcaption>Meadows’ twelve leverage points, from parameters (12) to transcending paradigms (1). Most effort goes to the left; most leverage sits on the right.</figcaption></figure>
+<div class="example">
+<h4>Example: Healthcare System</h4>
+<p><strong>Low leverage:</strong> Increase hospital beds, buy new equipment (expensive, short-term).</p>
+<p><strong>Medium leverage:</strong> Change patient flow processes, doctor incentives.</p>
+<p><strong>High leverage:</strong> Shift the goal from “treating sickness” to “preventing sickness”; Shift the paradigm from “patients are a burden” to “health is an asset.”</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Detailed 12 Leverage Points</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div class="table-wrap"><table class="comparison-table">
+<thead><tr><th>#</th><th>Leverage Point</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>12</td><td><strong>Constants, parameters</strong></td><td>Subsidies, taxes, standards</td></tr>
+<tr><td>11</td><td><strong>Buffers</strong></td><td>Increase inventory, reservoirs</td></tr>
+<tr><td>10</td><td><strong>Stock-and-flow structures</strong></td><td>Build hospitals, roads</td></tr>
+<tr><td>9</td><td><strong>Delays</strong></td><td>Reduce response time</td></tr>
+<tr><td>8</td><td><strong>Balancing loops</strong></td><td>Add feedback control</td></tr>
+<tr><td>7</td><td><strong>Reinforcing loops</strong></td><td>Reduce harmful growth loops</td></tr>
+<tr><td>6</td><td><strong>Information flows</strong></td><td>Public disclosure, transparency</td></tr>
+<tr><td>5</td><td><strong>Rules</strong></td><td>Incentives, punishments, constraints</td></tr>
+<tr><td>4</td><td><strong>Self-organization</strong></td><td>System's ability to evolve</td></tr>
+<tr><td>3</td><td><strong>Goals</strong></td><td>System purpose</td></tr>
+<tr><td>2</td><td><strong>Paradigms</strong></td><td>Foundational mindset</td></tr>
+<tr><td>1</td><td><strong>Transcending paradigms</strong></td><td>Remaining flexible, not attached to any single paradigm</td></tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">6.2</span> Systems Leadership</h3>
+<p>Systems leaders don't control; they coordinate, nurture the learning ecosystem, and facilitate the flow of knowledge.</p>
+<h4>5 characteristics of a Systems Leader:</h4>
+<ol>
+<li><strong>Hold the big picture:</strong> See the whole system, not just the parts</li>
+<li><strong>Listen across dimensions:</strong> Understand multiple actor perspectives</li>
+<li><strong>Ask powerful questions:</strong> Provoke thought, not provide answers</li>
+<li><strong>Embrace uncertainty:</strong> Comfortable with ambiguity, not needing to control everything</li>
+<li><strong>Facilitate learning:</strong> Create safe spaces for experimentation and learning</li>
+</ol>
+<div class="key-concept">
+<h4>Role Shift</h4>
+<p><strong>From:</strong> Hero leader (solving all problems)<br/>
+<strong>To:</strong> Host leader (creating space for others to solve)</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>5 Practices of a Systems Leader</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div class="skills-list">
+<div class="skill-item"><h4>1. See the System</h4><p>Identify patterns, structures, mental models</p></div>
+<div class="skill-item"><h4>2. Facilitate Reflection</h4><p>Create space for the team to reflect and learn</p></div>
+<div class="skill-item"><h4>3. Shift from Blame to Learning</h4><p>Change the culture from blaming to learning</p></div>
+<div class="skill-item"><h4>4. Build Shared Understanding</h4><p>Use tools to create a common language</p></div>
+<div class="skill-item"><h4>5. Catalyze Collective Action</h4><p>Connect stakeholders to act together</p></div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">6.3</span> Designing for Resilience</h3>
+<p>Resilience is the ability of a system to recover and learn from failure, rather than collapsing under shock.</p>
+<h4>3 elements of Resilience:</h4>
+<ol>
+<li><strong>Diversity:</strong> Multiple ways to respond, not dependent on a single solution</li>
+<li><strong>Modularity:</strong> Independent parts, failure doesn't spread through the whole system</li>
+<li><strong>Feedback:</strong> Fast information to adjust in time</li>
+</ol>
+<div class="example">
+<h4>Example: Project Portfolio</h4>
+<p><strong>Low resilience:</strong> 100% budget in 1 big project → If it fails, the company collapses.</p>
+<p><strong>High resilience:</strong> 70% in stable projects, 20% in growth projects, 10% in experiments → If experiments fail, the company survives.</p>
+</div><figure class="fig"><div class="fig-scroll"><svg aria-label="Project portfolio resilience" role="img" viewbox="0 0 640 160"><defs><marker id="a-port" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="t-port" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-teal" d="M0 0 L10 5 L0 10 z"></path></marker><marker id="p-port" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path class="mk-plum" d="M0 0 L10 5 L0 10 z"></path></marker></defs><text class="b" text-anchor="end" x="140" y="52">Low resilience</text><rect class="seg s1" height="28" rx="4" width="460" x="150" y="34"></rect><text class="b inv" text-anchor="middle" x="380.0" y="53">100% one big project</text><text class="b" text-anchor="end" x="140" y="112">High resilience</text><rect class="seg s1" height="28" rx="4" width="320" x="151" y="94"></rect><text class="b inv" text-anchor="middle" x="311" y="113">Stable 70%</text><rect class="seg s2" height="28" rx="4" width="90" x="473" y="94"></rect><text class="b inv" text-anchor="middle" x="518" y="113">Growth 20%</text><rect class="seg s3" height="28" rx="4" width="44" x="565" y="94"></rect><text class="b" text-anchor="middle" x="587" y="113">10%</text><text class="s" text-anchor="end" x="610" y="146">experiments that can fail safely</text></svg></div><figcaption>Diversity and modularity in a budget: a failed experiment costs 10%, not the company.</figcaption></figure>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Checklist: Designing a Resilient System</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<h4>Diversity:</h4>
+<ul><li>☐ Are there multiple revenue sources?</li><li>☐ Are there diverse skills in the team?</li><li>☐ Are there multiple scenario plans?</li></ul>
+<h4>Modularity:</h4>
+<ul><li>☐ Can teams operate independently?</li><li>☐ Can a failure in one part be isolated?</li><li>☐ Is there redundancy?</li></ul>
+<h4>Feedback:</h4>
+<ul><li>☐ Are metrics real-time?</li><li>☐ Are there fast feedback loops?</li><li>☐ Is there a culture of learning from failure?</li></ul>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h3><span class="s-num">6.4</span> Redefining Success</h3>
+<p>Instead of measuring success by optimizing individual parts, measure by the sustainable development of the entire system.</p>
+<h4>System success indicators:</h4>
+<ul>
+<li><strong>Sustainability:</strong> Can the system last long-term?</li>
+<li><strong>Equity:</strong> Are benefits distributed fairly?</li>
+<li><strong>Adaptability:</strong> Can the system adapt to change?</li>
+<li><strong>Learning:</strong> Does the system learn and improve?</li>
+<li><strong>Well-being:</strong> Are the actors within the system thriving?</li>
+</ul>
+<div class="example">
+<h4>Example: Company</h4>
+<p><strong>Old success:</strong> Quarterly profit, stock price, market share.</p>
+<p><strong>New success:</strong> Employee growth, customer loyalty, positive social impact, adaptability, continuous learning.</p>
+</div>
+<div class="sub-section">
+<div aria-expanded="false" class="sub-section-header" role="button" tabindex="0">
+<h4>Balanced Scorecard for Systems</h4>
+<div aria-hidden="true" class="toggle-icon"></div>
+</div>
+<div class="sub-section-content">
+<div class="sub-section-body"><div class="pad">
+<div class="table-wrap"><table class="comparison-table">
+<thead><tr><th>Perspective</th><th>Traditional Metrics</th><th>Systems Metrics</th></tr></thead>
+<tbody>
+<tr><td><strong>Financial</strong></td><td>Revenue, profit, ROI</td><td>Sustainable profit, long-term value</td></tr>
+<tr><td><strong>Customer</strong></td><td>NPS, satisfaction</td><td>Customer growth, mutual value</td></tr>
+<tr><td><strong>Internal</strong></td><td>Efficiency, productivity</td><td>Learning rate, innovation, adaptability</td></tr>
+<tr><td><strong>People</strong></td><td>Turnover, engagement</td><td>Growth, well-being, development</td></tr>
+<tr><td><strong>Society</strong></td><td>CSR spending</td><td>Net positive impact, sustainability</td></tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+    <div class="teaching" id="teaching"><h2 class="block-title">Teaching methods</h2><p class="block-lede">How the course is meant to be run: learners write, play, draw and apply every tool to a real problem of their own.</p><div class="method-grid"><div class="method"><h4>1. Writing is Thinking</h4><p>Encourage learners to keep a reflective journal to untangle complex thoughts. Writing forces clarity, reveals gaps, and connects ideas.</p><ul>
+<li>Daily journal: 15 minutes on a system problem</li>
+<li>Write explanations for others to understand</li>
+<li>Draw diagrams with captions</li>
+</ul></div><div class="method"><h4>2. Discovery Learning</h4><p>Use simulation games (like the Beer Game) for learners to discover system structure lessons themselves rather than being taught theory.</p><ul>
+<li><strong>Beer Distribution Game:</strong> Experience delays and oscillation in supply chains</li>
+<li><strong>Fishbanks:</strong> Experience the tragedy of the commons</li>
+<li><strong>Simulation:</strong> Model feedback loops</li>
+</ul></div><div class="method"><h4>3. Visual Modeling</h4><p>Practice drawing diagrams continuously on whiteboards or software to turn abstract thinking into tangible reality.</p><ul>
+<li>Causal Loop Diagrams (CLD)</li>
+<li>Stock and Flow Diagrams</li>
+<li>Iceberg Model worksheets</li>
+<li>Actor Maps on large paper</li>
+</ul></div><div class="method"><h4>4. Project-Based Learning</h4><p>Each learner applies the tools to a real problem they face, reporting progress throughout the sessions.</p></div></div></div>
+    <footer class="colophon">
+      <p>Built from a synthesis of Systems Thinking (SAIT), Learning Systems Thinking (Diana Montalion), The Fifth Discipline (Peter Senge), Thinking in Systems (Donella Meadows)</p>
+      <p class="ver">Compiled 2026, version 2.0</p>
+    </footer>
+  </main>
+</div>
+<script>
+(function () {
+  const modules = Array.from(document.querySelectorAll('.module'));
+  const setOpen = (el, header, open) => {
+    el.classList.toggle('active', open);
+    header.setAttribute('aria-expanded', String(open));
+  };
+  const bindToggle = (header, el) => {
+    const flip = () => setOpen(el, header, !el.classList.contains('active'));
+    header.addEventListener('click', flip);
+    header.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+  };
+  modules.forEach(m => bindToggle(m.querySelector('.module-header'), m));
+  document.querySelectorAll('.sub-section').forEach(s => bindToggle(s.querySelector('.sub-section-header'), s));
+
+  const openModule = i => {
+    const m = document.getElementById('module-' + i);
+    if (m) setOpen(m, m.querySelector('.module-header'), true);
+    return m;
+  };
+  document.querySelectorAll('a[data-module]').forEach(a => {
+    a.addEventListener('click', e => {
+      const i = a.dataset.module;
+      if (i === 't') return;
+      e.preventDefault();
+      const m = openModule(i);
+      requestAnimationFrame(() => m.scrollIntoView({ block: 'start' }));
+    });
+  });
+
+  const expandBtn = document.querySelector('.expand-all');
+  expandBtn.addEventListener('click', () => {
+    const allOpen = modules.every(m => m.classList.contains('active'));
+    modules.forEach(m => setOpen(m, m.querySelector('.module-header'), !allOpen));
+    expandBtn.textContent = allOpen ? 'Expand all' : 'Collapse all';
+    expandBtn.setAttribute('aria-pressed', String(!allOpen));
+  });
+
+  const tocLinks = Array.from(document.querySelectorAll('.toc a'));
+  const targets = [...modules, document.getElementById('teaching')];
+  const mark = id => tocLinks.forEach(a => {
+    const on = a.getAttribute('href') === '#' + id;
+    a.classList.toggle('current', on);
+    if (on && window.matchMedia('(max-width: 960px)').matches) {
+      const ol = a.closest('ol');
+      ol.scrollTo({ left: a.offsetLeft - ol.offsetLeft - 12, behavior: 'smooth' });
+    }
+  });
+  let last = null, ticking = false;
+  const update = () => {
+    ticking = false;
+    const line = window.innerHeight * 0.3;
+    let cur = targets[0];
+    targets.forEach(t => { if (t.getBoundingClientRect().top <= line) cur = t; });
+    if (cur.id !== last) { last = cur.id; mark(cur.id); }
+  };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+  openModule(0);
+})();
+
+</script>
+</body>
+</html>
